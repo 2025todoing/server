@@ -27,11 +27,13 @@ public class Chat extends BaseEntity {
     private String message;
 
     @ManyToOne
-    @JoinColumn(name = "sender_id")
+    @JoinColumn(name = "member_id")
     private Member sender;
 
     @ManyToOne
     @JoinColumn(name = "community_id")
     private Community community;
+
+
 
 }
