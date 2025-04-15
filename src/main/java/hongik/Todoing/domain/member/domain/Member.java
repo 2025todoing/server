@@ -40,6 +40,6 @@ public class Member extends BaseEntity {
     @OneToMany(mappedBy = "member")
     private List<CommunityMember> communityMembers;
 
-    @OneToMany(mappedBy = "sender")
+    @OneToMany(mappedBy = "member")
     private List<Chat> chats;
 }
