@@ -24,6 +24,7 @@ public class Community extends BaseEntity {
     private Long communityId;
 
     private String name;
+    private String description;
 
     @OneToMany(mappedBy = "community")
     private List<CommunityMember> communityMembers;
