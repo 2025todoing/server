@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class CommunityRequestDto {
+    private Long adminId;
     private String name;
     private String description;
 }

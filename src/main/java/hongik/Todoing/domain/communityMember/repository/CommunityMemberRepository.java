@@ -13,4 +13,5 @@ public interface CommunityMemberRepository extends JpaRepository<CommunityMember
     List<CommunityMember> findByCommunity(Community community);
     Optional<CommunityMember> finByCommunityAndMember(Community community, Member member);
     boolean existsByCommunityAndMember(Community community, Member memberId);
+    List<CommunityMember> findByMember(Member member);
 }

@@ -12,12 +12,19 @@ public enum ErrorStatus implements BaseErrorCode {
     // 400 BAD_REQUEST
     BAD_REQUEST(HttpStatus.BAD_REQUEST, "4000", "잘못된 요청입니다."),
     DATE_IS_NULL(HttpStatus.BAD_REQUEST, "4001", "시작 또는 종료 날짜가 null입니다."),
+    DATE_IS_NOT_VALID(HttpStatus.BAD_REQUEST, "4002", "시작 또는 종료 날짜가 유효하지 않습니다."),
+    COMMUNITY_NAME_NULL(HttpStatus.BAD_REQUEST, "4003", "커뮤니티 이름이나 설명이 null입니다."),
+    COMMUNITY_NAME_IS_DUPLICATED(HttpStatus.BAD_REQUEST, "4004", "커뮤니티 이름이 중복되었습니다."),
     // 401 UNAUTHORIZED
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "인증되지 않은 사용자입니다."),
+    COMMUNITY_ADMIN_UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "4011", "커뮤니티 관리자 권한이 없습니다."),
     // 403 FORBIDDEN
     FORBIDDEN(HttpStatus.FORBIDDEN, "403", "접근이 금지된 사용자입니다."),
     // 404 NOT_FOUND
     NOT_FOUND(HttpStatus.NOT_FOUND, "404", "요청한 리소스를 찾을 수 없습니다."),
+    COMMUNITY_NOT_FOUND(HttpStatus.NOT_FOUND, "4041", "커뮤니티를 찾을 수 없습니다."),
+    MEMBER_NOT_FOUND(HttpStatus.NOT_FOUND, "4042", "멤버를 찾을 수 없습니다."),
+    COMMUNITY_ADMIN_NOT_FOUND(HttpStatus.NOT_FOUND, "4043", "커뮤니티 관리자 정보를 찾을 수 없습니다."),
     // 409 CONFLICT
     CONFLICT(HttpStatus.CONFLICT, "409", "요청한 리소스와 충돌이 발생했습니다."),
     // 500 INTERNAL_SERVER_ERROR

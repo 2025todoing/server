@@ -4,6 +4,6 @@ import lombok.Builder;
 
 @Builder
 public class CommunityMemberDto {
-    private Long userId;
+    private Long memberId;
     private String userName;
 }

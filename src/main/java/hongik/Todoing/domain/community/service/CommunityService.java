@@ -11,8 +11,8 @@ public interface CommunityService {
     CommunityResponseDto createCommunity(CommunityRequestDto request);
     List<CommunityResponseDto> getAllCommunities();
     CommunityResponseDto getCommunityByCommunityId(Long communityId);
-    CommunityResponseDto updateCommunity(Long communityId, CommunityRequestDto request);
-    void deleteCommunity(Long communityId);
+    CommunityResponseDto updateCommunity(Long communityId,Long adminId, String description);
+    void deleteCommunity(Long communityId, Long adminId);
     List<CommunityResponseDto> getCommunitiesByUserId(Long userId);
     void joinCommunity(Long userId, Long communityId);
     void leaveCommunity(Long userId, Long communityId);
