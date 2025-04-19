@@ -35,7 +35,7 @@ public class CommunityServiceImpl implements CommunityService{
     @Override
     public CommunityResponseDto createCommunity(CommunityRequestDto request) {
 
-        if(request.getName() == null || request.getDescription() == null) {
+        if (request.getName() == null || request.getDescription() == null) {
             throw new CommunityException(ErrorStatus.COMMUNITY_NAME_NULL);
         }
 
