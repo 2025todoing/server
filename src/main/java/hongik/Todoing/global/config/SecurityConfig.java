@@ -24,6 +24,9 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final RedisUtil redisUtil;
+    private final String[] allowedUrls = {"/login",
+            "/reissue", "/swagger-ui/**", "/swagger-resources/**", "v3/api-docs/**", "/auth/login/kakao/**"
+    };
 
     @Bean
     public BCryptPasswordEncoder encodePassword() {
@@ -65,7 +68,8 @@ public class SecurityConfig {
         http.
                 authorizeHttpRequests(authorizeRequests ->
                         authorizeRequests
-                                .requestMatchers("/user/**","/reissue").authenticated()
+                                .requestMatchers(allowedUrls).permitAll()
+                                .requestMatchers("/user/**").authenticated()
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                 );

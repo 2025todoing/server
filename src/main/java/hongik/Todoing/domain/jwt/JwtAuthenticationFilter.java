@@ -2,8 +2,9 @@ package hongik.Todoing.domain.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hongik.Todoing.domain.jwt.dto.JwtDTO;
-import hongik.Todoing.domain.login.PrincipalDetails;
-import hongik.Todoing.domain.login.dto.LoginRequestDTO;
+import hongik.Todoing.domain.auth.PrincipalDetails;
+import hongik.Todoing.domain.auth.dto.LoginRequestDTO;
+import hongik.Todoing.global.apiPayload.ApiResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -62,12 +63,19 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         log.info("[*] Login Success - Login with" + principalDetails.getUsername());
         JwtDTO jwtDTO = new JwtDTO(
                 jwtUtil.createJwtAccessToken(principalDetails),
-                jwtUtil.createJwtRefreshToken(principalDetails),
+                jwtUtil.createJwtRefreshToken(principalDetails)
         );
 
         log.info("Access token: " + jwtDTO.accessToken());
         log.info("Refresh token: " + jwtDTO.refreshToken());
 
-        HttpResponseUtil.setSuccessResponse(response, HttpStatus.CREATED, jwtDTO);
+        ApiResponse<JwtDTO> apiResponse = ApiResponse.onSuccess(jwtDTO);
+
+        response.setStatus(HttpStatus.CREATED.value());
+        response.setContentType("application/json;charset=UTF-8");
+
+        ObjectMapper om = new ObjectMapper();
+        om.writeValue(response.getWriter(), apiResponse);
+
     }
 }

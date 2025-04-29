@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.login.dto;
+package hongik.Todoing.domain.auth.dto;
 
 public record LoginRequestDTO(
         String username,

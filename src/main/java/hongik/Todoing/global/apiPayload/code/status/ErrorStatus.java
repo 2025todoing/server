@@ -16,8 +16,10 @@ public enum ErrorStatus implements BaseErrorCode {
     COMMUNITY_NAME_NULL(HttpStatus.BAD_REQUEST, "4003", "커뮤니티 이름이나 설명이 null입니다."),
     COMMUNITY_NAME_IS_DUPLICATED(HttpStatus.BAD_REQUEST, "4004", "커뮤니티 이름이 중복되었습니다."),
     // 401 UNAUTHORIZED
-    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "인증되지 않은 사용자입니다."),
+    UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "4010", "인증되지 않은 사용자입니다."),
     COMMUNITY_ADMIN_UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "4011", "커뮤니티 관리자 권한이 없습니다."),
+    TOKEN_EXPIRED(HttpStatus.UNAUTHORIZED, "4012", "토큰이 만료되었습니다."),
+    TOKEN_IS_NOT_VALID(HttpStatus.UNAUTHORIZED, "4013", "토큰이 유효하지 않습니다."),
     // 403 FORBIDDEN
     FORBIDDEN(HttpStatus.FORBIDDEN, "403", "접근이 금지된 사용자입니다."),
     // 404 NOT_FOUND

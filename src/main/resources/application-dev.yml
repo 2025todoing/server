@@ -12,18 +12,13 @@ spring:
     password: 1234
 
 
-    jpa:
-      open-in-view: false
+  jpa:
+    hibernate:
+      ddl-auto: create
+    properties:
       hibernate:
-        ddl-auto: create
-      properties:
-        hibernate:
-          default_batch_fetch_size: 100
-          '[hibernate.format_sql]': true
-      show-sql: true
-      output:
-        ansi:
-          enabled: always
+        show_sql: true
+        format_sql: true
 
       logging:
         level:

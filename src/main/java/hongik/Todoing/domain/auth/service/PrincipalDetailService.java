@@ -1,5 +1,6 @@
-package hongik.Todoing.domain.login;
+package hongik.Todoing.domain.auth.service;
 
+import hongik.Todoing.domain.auth.PrincipalDetails;
 import hongik.Todoing.domain.member.domain.Member;
 import hongik.Todoing.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;

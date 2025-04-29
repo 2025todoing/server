@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.login;
+package hongik.Todoing.domain.auth;
 
 import hongik.Todoing.domain.member.domain.Member;
 import lombok.Getter;
@@ -7,6 +7,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Getter
@@ -16,6 +17,14 @@ public class PrincipalDetails implements UserDetails {
 
     public PrincipalDetails(Member member) {
         this.member = member;
+    }
+
+    public PrincipalDetails(String username, String password, String role) {
+        this.member = Member.builder()
+                .name(username)
+                .password(password)
+                .role(role)
+                .build();
     }
 
     // 해당 Member 권한 리턴
