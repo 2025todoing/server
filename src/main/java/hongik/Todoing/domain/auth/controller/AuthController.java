@@ -22,7 +22,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final AuthService authService;
 
-    @GetMapping("/reissue")
+    @GetMapping("/api/reissue")
     public ApiResponse<JwtDTO> reissueToken(@RequestHeader("RefreshToken") String refreshToken ) {
         try {
             jwtUtil.validateRefreshToken(refreshToken);

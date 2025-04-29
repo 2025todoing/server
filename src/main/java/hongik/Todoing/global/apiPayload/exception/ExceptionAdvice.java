@@ -23,7 +23,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
-@RestControllerAdvice(annotations = {RestController.class})
+//@RestControllerAdvice(annotations = {RestController.class}, basePackages = {"hongik.Todoing"})
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
     @org.springframework.web.bind.annotation.ExceptionHandler

@@ -25,7 +25,7 @@ public class SecurityConfig {
     private final JwtUtil jwtUtil;
     private final RedisUtil redisUtil;
     private final String[] allowedUrls = {"/login",
-            "/reissue", "/swagger-ui/**", "/swagger-resources/**", "v3/api-docs/**", "/auth/login/kakao/**"
+            "/reissue", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/auth/login/kakao/**"
     };
 
     @Bean
