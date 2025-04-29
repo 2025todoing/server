@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface CommunityMemberRepository extends JpaRepository<CommunityMember, Long> {
 
     List<CommunityMember> findByCommunity(Community community);
-    Optional<CommunityMember> finByCommunityAndMember(Community community, Member member);
+    Optional<CommunityMember> findByCommunityAndMember(Community community, Member member);
     boolean existsByCommunityAndMember(Community community, Member memberId);
     List<CommunityMember> findByMember(Member member);
 }

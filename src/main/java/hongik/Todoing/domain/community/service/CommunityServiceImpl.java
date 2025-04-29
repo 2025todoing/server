@@ -32,6 +32,9 @@ public class CommunityServiceImpl implements CommunityService{
     private static final Logger log = LoggerFactory.getLogger(CommunityServiceImpl.class);
 
 
+    /*
+    커뮤니티 기능은 필요 없을 예정
+     */
     @Override
     public CommunityResponseDto createCommunity(CommunityRequestDto request) {
 
@@ -170,7 +173,7 @@ public class CommunityServiceImpl implements CommunityService{
                 .orElseThrow(() -> new CommunityException(ErrorStatus.MEMBER_NOT_FOUND));
 
         // 커뮤니티 멤버 조회
-        CommunityMember communityMember = communityMemberRepository.finByCommunityAndMember(community, member)
+        CommunityMember communityMember = communityMemberRepository.findByCommunityAndMember(community, member)
                 .orElseThrow(() -> new CommunityException(ErrorStatus.COMMUNITY_ADMIN_NOT_FOUND));
 
         // 커뮤니티 멤버 삭제
@@ -195,8 +198,8 @@ public class CommunityServiceImpl implements CommunityService{
 
         return communityMembers.stream()
                 .map(communityMember -> CommunityMemberDto.builder()
-                        .memberId(communityMember.getMember().getUserId())
-                        .userName(communityMember.getMember().getNickname())
+                        .memberId(communityMember.getMember().getId())
+                        .userName(communityMember.getMember().getName())
                         .build())
                 .toList();
     }
@@ -212,7 +215,7 @@ public class CommunityServiceImpl implements CommunityService{
                 .orElseThrow(() -> new CommunityException(ErrorStatus.MEMBER_NOT_FOUND));
 
         // 커뮤니티 생성자와 수정 요청한 멤버가 다르면 예외 발생
-        CommunityMember communityAdmin = communityMemberRepository.finByCommunityAndMember(community, adminMember)
+        CommunityMember communityAdmin = communityMemberRepository.findByCommunityAndMember(community, adminMember)
                 .orElseThrow(() -> new CommunityException(ErrorStatus.COMMUNITY_ADMIN_NOT_FOUND));
 
         // 커뮤니티 생성자와 수정 요청한 멤버가 ADMIN이 아니면 예외 발생

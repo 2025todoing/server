@@ -6,10 +6,7 @@ import hongik.Todoing.domain.todoReply.domain.TodoReply;
 import hongik.Todoing.domain.verification.domain.Verification;
 import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -19,6 +16,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Setter
 public class Todo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,6 +25,7 @@ public class Todo extends BaseEntity {
     private String content;
     private LocalDate todoDate;
     private boolean isAiNeeded;
+    private boolean isCompleted;
 
     @Enumerated(EnumType.STRING)
     private VerificationStatus status;

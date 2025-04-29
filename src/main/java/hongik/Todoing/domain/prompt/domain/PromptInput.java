@@ -1,7 +1,6 @@
 package hongik.Todoing.domain.prompt.domain;
 
 import hongik.Todoing.domain.label.domain.Label;
-import hongik.Todoing.domain.label.domain.LabelType;
 import hongik.Todoing.domain.member.domain.Member;
 import hongik.Todoing.domain.prompt.exception.PromptException;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;

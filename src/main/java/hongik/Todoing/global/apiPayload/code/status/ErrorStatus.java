@@ -29,6 +29,7 @@ public enum ErrorStatus implements BaseErrorCode {
     CONFLICT(HttpStatus.CONFLICT, "409", "요청한 리소스와 충돌이 발생했습니다."),
     // 500 INTERNAL_SERVER_ERROR
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "500", "서버 내부 오류입니다."),
+    PASSING_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "5001", "Oauth passing error."),
     // 503 SERVICE_UNAVAILABLE
     SERVICE_UNAVAILABLE(HttpStatus.SERVICE_UNAVAILABLE, "503", "서비스를 사용할 수 없습니다."),
     // 504 GATEWAY_TIMEOUT
