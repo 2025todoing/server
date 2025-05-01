@@ -1,7 +1,7 @@
 package hongik.Todoing.domain.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hongik.Todoing.domain.auth.PrincipalDetails;
+import hongik.Todoing.domain.auth.util.PrincipalDetails;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.util.RedisUtil;
 import io.jsonwebtoken.ExpiredJwtException;

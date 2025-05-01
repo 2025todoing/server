@@ -1,6 +1,6 @@
 package hongik.Todoing.domain.jwt;
 
-import hongik.Todoing.domain.auth.PrincipalDetails;
+import hongik.Todoing.domain.auth.util.PrincipalDetails;
 import hongik.Todoing.domain.auth.service.PrincipalDetailService;
 import hongik.Todoing.domain.jwt.dto.JwtDTO;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
@@ -13,8 +13,6 @@ import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.UnsupportedJwtException;
 import io.jsonwebtoken.security.SecurityException;
 import jakarta.servlet.http.HttpServletRequest;
-import lombok.AllArgsConstructor;
-import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 
 import lombok.extern.slf4j.Slf4j;

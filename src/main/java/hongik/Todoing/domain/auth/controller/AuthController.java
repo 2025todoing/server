@@ -1,6 +1,8 @@
 package hongik.Todoing.domain.auth.controller;
 
 import hongik.Todoing.domain.auth.converter.AuthConverter;
+import hongik.Todoing.domain.auth.dto.LoginRequestDTO;
+import hongik.Todoing.domain.auth.dto.SignUpRequestDto;
 import hongik.Todoing.domain.auth.service.AuthService;
 import hongik.Todoing.domain.jwt.JwtUtil;
 import hongik.Todoing.domain.jwt.dto.JwtDTO;
@@ -43,4 +45,18 @@ public class AuthController {
         String accessToken = response.getHeader("Authorization");
         return ApiResponse.onSuccess(AuthConverter.JoinResponse(member, accessToken));
     }
+
+    @PostMapping("/auth/login/email")
+    public ApiResponse<JwtDTO> loginWithEmail(@RequestBody LoginRequestDTO request) {
+        JwtDTO jwtDTO = authService.loginWithEmail(request.email(), request.password());
+        return ApiResponse.onSuccess(jwtDTO);
+    }
+
+    @PostMapping("/auth/signup")
+    public ApiResponse<JwtDTO> signUpWithEmail(@RequestBody SignUpRequestDto request) {
+        JwtDTO jwtDTO = authService.signUpWithEmail(request);
+        return ApiResponse.onSuccess(jwtDTO);
+    }
+
+
 }

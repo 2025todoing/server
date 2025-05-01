@@ -1,6 +1,6 @@
 package hongik.Todoing.domain.auth.service;
 
-import hongik.Todoing.domain.auth.PrincipalDetails;
+import hongik.Todoing.domain.auth.util.PrincipalDetails;
 import hongik.Todoing.domain.member.domain.Member;
 import hongik.Todoing.domain.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
@@ -16,14 +16,14 @@ import java.util.Optional;
 public class PrincipalDetailService implements UserDetailsService {
     private final MemberRepository memberRepository;
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
-        Optional<Member> memberEntity = memberRepository.findByName(username);
+        Optional<Member> memberEntity = memberRepository.findByEmail(email);
         if(memberEntity.isPresent()) {
             Member member = memberEntity.get();
             //return new PrincipalDetails(member.getName(), member.getPassword(), member.getRole());
             return new PrincipalDetails(member);
         }
-        throw new UsernameNotFoundException("User not found with username: " + username);
+        throw new UsernameNotFoundException("User not found with email: " + email);
     }
 }

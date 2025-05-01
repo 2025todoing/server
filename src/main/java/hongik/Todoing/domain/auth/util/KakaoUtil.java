@@ -1,7 +1,7 @@
-package hongik.Todoing.domain.kakao;
+package hongik.Todoing.domain.auth.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import hongik.Todoing.domain.kakao.dto.KakaoDTO;
+import hongik.Todoing.domain.auth.dto.KakaoDTO;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
 import hongik.Todoing.global.apiPayload.exception.GeneralException;
 import lombok.extern.slf4j.Slf4j;

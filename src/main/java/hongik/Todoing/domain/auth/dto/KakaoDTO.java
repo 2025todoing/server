@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.kakao.dto;
+package hongik.Todoing.domain.auth.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;

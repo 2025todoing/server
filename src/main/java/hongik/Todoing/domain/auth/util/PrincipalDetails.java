@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.auth;
+package hongik.Todoing.domain.auth.util;
 
 import hongik.Todoing.domain.member.domain.Member;
 import lombok.Getter;
@@ -42,7 +42,7 @@ public class PrincipalDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return member.getName();
+        return member.getEmail();
     }
 
     @Override

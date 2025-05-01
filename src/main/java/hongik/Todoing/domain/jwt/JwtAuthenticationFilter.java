@@ -2,7 +2,7 @@ package hongik.Todoing.domain.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hongik.Todoing.domain.jwt.dto.JwtDTO;
-import hongik.Todoing.domain.auth.PrincipalDetails;
+import hongik.Todoing.domain.auth.util.PrincipalDetails;
 import hongik.Todoing.domain.auth.dto.LoginRequestDTO;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import jakarta.servlet.FilterChain;
@@ -45,7 +45,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         // usernamePassword Token generate
         UsernamePasswordAuthenticationToken authenticationToken =
                 new UsernamePasswordAuthenticationToken(
-                        loginRequestDTO.username(),
+                        loginRequestDTO.email(),
                         loginRequestDTO.password()
                 );
 
