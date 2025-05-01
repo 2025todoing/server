@@ -7,10 +7,13 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class AuthConverter {
 
     public static Member toMember(String email, String name, String password, PasswordEncoder passwordEncoder) {
+
+        String passwordToUse = password != null ? passwordEncoder.encode(password) :
+                passwordEncoder.encode("defaultPassword");
         return Member.builder()
                 .email(email)
                 .role("ROLE_USER")
-                .password(passwordEncoder.encode(password))
+                .password(passwordToUse)
                 .name(name)
                 .build();
     }

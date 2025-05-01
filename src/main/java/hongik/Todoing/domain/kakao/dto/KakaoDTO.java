@@ -1,5 +1,6 @@
 package hongik.Todoing.domain.kakao.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Getter;
 
 public class KakaoDTO {
@@ -15,18 +16,23 @@ public class KakaoDTO {
     }
 
     @Getter
+    @JsonIgnoreProperties(ignoreUnknown = true)
     public static class KakaoProfile {
-        private Long i;
+        private Long id;
         private String connected_at;
         private Properties properties;
         private KakaoAccount kakao_account;
 
+        // 현재 이미지는 카카오에서 주고 있는데 여기서 사용하지 않으므로
+        // @JsonIgnoreProperties(ignoreUnknown = true) 처리함
         @Getter
+        @JsonIgnoreProperties(ignoreUnknown = true)
         public class Properties {
             private String nickname;
         }
 
         @Getter
+        @JsonIgnoreProperties(ignoreUnknown = true)
         public class KakaoAccount {
             private String email;
             private Boolean is_email_verified;
@@ -37,6 +43,7 @@ public class KakaoDTO {
             private Profile profile;
 
             @Getter
+            @JsonIgnoreProperties(ignoreUnknown = true)
             public class Profile {
                 private String nickname;
                 private Boolean is_default_nickname;
