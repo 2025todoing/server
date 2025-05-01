@@ -20,6 +20,9 @@ public class CommunityMember extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private CommunityRole role;
+
     @ManyToOne
     @JoinColumn(name = "member_id")
     private Member member;

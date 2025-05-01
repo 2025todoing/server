@@ -4,14 +4,14 @@ import hongik.Todoing.domain.chat.domain.Chat;
 import hongik.Todoing.domain.communityMember.domain.CommunityMember;
 import hongik.Todoing.domain.prompt.domain.PromptInput;
 import hongik.Todoing.domain.todo.domain.Todo;
-import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @Entity
@@ -19,17 +19,18 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Table(name = "member")
-public class Member extends BaseEntity {
+public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long userId;
+    private Long id;
 
-    @NotNull
-    private String nickname;
+    private String name;
+
+    private String password;
 
     private String email;
-    private EmailType emailType;
+
+    private String role; // ROLE_USER, ROLE_ADMIN
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<PromptInput> promptInputs;
@@ -42,4 +43,11 @@ public class Member extends BaseEntity {
 
     @OneToMany(mappedBy = "sender")
     private List<Chat> chats;
+
+    public List<String> getRoleList() {
+        if(!this.role.isEmpty()) {
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
+    }
 }

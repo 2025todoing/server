@@ -23,11 +23,19 @@ public class Community extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long communityId;
 
+    @Column(nullable = false, unique = true)
     private String name;
+
+    @Column(nullable = false)
+    private String description;
 
     @OneToMany(mappedBy = "community")
     private List<CommunityMember> communityMembers;
 
     @OneToMany(mappedBy = "community")
     private List<Chat> chats;
+
+    public void updateDescription(String description) {
+        this.description = description;
+    }
 }

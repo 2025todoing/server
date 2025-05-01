@@ -1,8 +1,11 @@
 package hongik.Todoing.global.apiPayload.exception;
 
+import hongik.Todoing.domain.auth.controller.AuthController;
+import hongik.Todoing.domain.community.controller.CommunityController;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.apiPayload.code.errorDto.ErrorReasonDTO;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
+import io.swagger.v3.oas.annotations.Hidden;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
 import jakarta.validation.ConstraintViolationException;
@@ -23,6 +26,7 @@ import java.util.Map;
 import java.util.Optional;
 
 @Slf4j
+@Hidden
 @RestControllerAdvice(annotations = {RestController.class})
 public class ExceptionAdvice extends ResponseEntityExceptionHandler {
 
