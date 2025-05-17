@@ -20,11 +20,7 @@ public class Label {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long labelId;
 
+    @Enumerated(EnumType.STRING)
     private LabelType labelName;
 
-    @OneToMany(mappedBy = "label")
-    private List<PromptInput> promptInputs;
-
-    @OneToMany(mappedBy = "label")
-    private List<Todo> todos;
 }

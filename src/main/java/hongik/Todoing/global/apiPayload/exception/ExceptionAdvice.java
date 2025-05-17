@@ -1,7 +1,5 @@
 package hongik.Todoing.global.apiPayload.exception;
 
-import hongik.Todoing.domain.auth.controller.AuthController;
-import hongik.Todoing.domain.community.controller.CommunityController;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.apiPayload.code.errorDto.ErrorReasonDTO;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;

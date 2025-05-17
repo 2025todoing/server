@@ -1,9 +1,6 @@
 package hongik.Todoing.domain.member.domain;
 
 import hongik.Todoing.domain.chat.domain.Chat;
-import hongik.Todoing.domain.communityMember.domain.CommunityMember;
-import hongik.Todoing.domain.prompt.domain.PromptInput;
-import hongik.Todoing.domain.todo.domain.Todo;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -19,35 +16,29 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@Table(name = "`user`")
 public class Member {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String name;
-
     private String password;
-
     private String email;
-
     private String role; // ROLE_USER, ROLE_ADMIN
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<PromptInput> promptInputs;
-
-    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Todo> todos;
-
-    @OneToMany(mappedBy = "member")
-    private List<CommunityMember> communityMembers;
-
-    @OneToMany(mappedBy = "sender")
-    private List<Chat> chats;
 
     public List<String> getRoleList() {
         if(!this.role.isEmpty()) {
             return Arrays.asList(this.role.split(","));
         }
         return new ArrayList<>();
+    }
+
+    public void updateName(String name) {
+        this.name = name;
+    }
+
+    public void updatePassword(String password) {
+        this.password = password;
     }
 }

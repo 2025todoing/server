@@ -25,12 +25,13 @@ public class PromptInput extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long promptInputId;
 
+    @Enumerated(EnumType.STRING)
     private Level level;
     private LocalDate startDate;
     private LocalDate endDate;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private Member member;
 
     @ManyToOne

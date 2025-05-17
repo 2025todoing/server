@@ -27,11 +27,9 @@ public class Todo extends BaseEntity {
     private boolean isAiNeeded;
     private boolean isCompleted;
 
-    @Enumerated(EnumType.STRING)
-    private VerificationStatus status;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private Member member;
 
     @ManyToOne
@@ -42,6 +40,15 @@ public class Todo extends BaseEntity {
     @JoinColumn(name = "verification_id")
     private Verification verification;
 
-    @OneToMany(mappedBy = "todo")
+    @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TodoReply> replies;
+
+    public void updateComplete(boolean isCompleted) {
+        this.isCompleted = isCompleted;
+    }
+    public void updateTodo(String content, LocalDate todoDate, Label label) {
+        this.content = content;
+        this.todoDate = todoDate;
+        this.label = label;
+    }
 }

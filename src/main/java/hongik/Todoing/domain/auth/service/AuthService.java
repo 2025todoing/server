@@ -26,7 +26,7 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
 
 
-    public Member oAuthLogin(String accessCode, HttpServletResponse response) {
+    public Member loginByOAuth(String accessCode, HttpServletResponse response) {
         KakaoDTO.OAuthToken oAuthToken = kakaoUtil.requestToken(accessCode);
         KakaoDTO.KakaoProfile kakaoProfile= kakaoUtil.requestProfile(oAuthToken);
 
@@ -45,14 +45,14 @@ public class AuthService {
         Member newMember = AuthConverter.toMember(
                 kakaoProfile.getKakao_account().getEmail(),
                 kakaoProfile.getProperties().getNickname(),
-                null,
+                "OAUTH",
                 passwordEncoder
         );
 
         return memberRepository.save(newMember);
     }
 
-    public JwtDTO loginWithEmail(String email, String password) {
+    public JwtDTO loginByEmail(String email, String password) {
         Member member = memberRepository.findByEmail(email)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
 
@@ -70,7 +70,7 @@ public class AuthService {
         return new JwtDTO(accessToken, refreshToken);
     }
 
-    public JwtDTO signUpWithEmail(SignUpRequestDto request) {
+    public void signUpByEmail(SignUpRequestDto request) {
         // 이메일 중복 체크
         if(memberRepository.existsByEmail(request.getEmail())) {
             throw new GeneralException(ErrorStatus.EMAIL_DUPLICATED);
@@ -89,11 +89,7 @@ public class AuthService {
 
         memberRepository.save(member);
 
-        // JWT 발급
-        PrincipalDetails principalDetails = new PrincipalDetails(member);
-        String accessToken = jwtUtil.createJwtAccessToken(principalDetails);
-        String refreshToken = jwtUtil.createJwtRefreshToken(principalDetails);
+        // 자동 로그인 안 함
 
-        return new JwtDTO(accessToken, refreshToken);
     }
 }
