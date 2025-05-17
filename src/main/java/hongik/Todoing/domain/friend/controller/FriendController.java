@@ -7,12 +7,14 @@ import hongik.Todoing.domain.friend.service.FriendService;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.apiPayload.code.status.SuccessStatus;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+@SecurityRequirement(name = "JWT")
 @RestController
 @RequestMapping("/api/friends")
 @RequiredArgsConstructor

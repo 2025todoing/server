@@ -22,16 +22,17 @@ public class SwaggerConfig {
                 .scheme("bearer")
                 .bearerFormat("JWT")
         );
+
         return new OpenAPI()
-                .components(new Components())
+                .components(components) // ✅ 한 번만
                 .info(apiInfo())
-                .addSecurityItem(securityRequirement)
-                .components(components);
+                .addSecurityItem(securityRequirement);
     }
+
     private Info apiInfo() {
         return new Info()
-                .title("투둥이API Test") // API의 제목
-                .description("홍익대학교 2025 졸업 프로젝트") // API에 대한 설명
-                .version("1.0.0"); // API의 버전
+                .title("투둥이API Test")
+                .description("홍익대학교 2025 졸업 프로젝트")
+                .version("1.0.0");
     }
 }

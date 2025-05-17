@@ -7,10 +7,12 @@ import hongik.Todoing.domain.member.dto.response.UpdateProfileDTO;
 import hongik.Todoing.domain.member.service.MemberService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.apiPayload.code.status.SuccessStatus;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+@SecurityRequirement(name = "JWT")
 @RestController
 @RequestMapping("/api/users")
 @RequiredArgsConstructor
