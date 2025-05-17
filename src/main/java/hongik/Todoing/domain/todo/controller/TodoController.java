@@ -7,6 +7,7 @@ import hongik.Todoing.domain.todo.dto.request.TodoUpdateRequestDTO;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
 import hongik.Todoing.domain.todo.service.SelfTodoService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -16,6 +17,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 
+@SecurityRequirement(name = "JWT")
 @RestController
 @RequestMapping("/api/todos")
 @RequiredArgsConstructor

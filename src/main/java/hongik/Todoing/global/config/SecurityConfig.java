@@ -1,6 +1,7 @@
 package hongik.Todoing.global.config;
 
 import hongik.Todoing.domain.jwt.JwtAuthenticationFilter;
+import hongik.Todoing.domain.jwt.JwtAuthorizationFilter;
 import hongik.Todoing.domain.jwt.JwtUtil;
 import hongik.Todoing.global.util.RedisUtil;
 import lombok.AllArgsConstructor;
@@ -73,13 +74,18 @@ public class SecurityConfig {
                                 .requestMatchers("/admin/**").hasRole("ADMIN")
                                 .anyRequest().permitAll()
                 );
-        // JWT 인증 필터 등록
-
+        // ✅ JWT 인증 필터 (로그인)
         JwtAuthenticationFilter loginFilter = new JwtAuthenticationFilter(
                 authenticationManager(authenticationConfiguration), jwtUtil);
         loginFilter.setFilterProcessesUrl("/login");
-        http.
-                addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class);
+
+        // ✅ JWT 권한 필터 (모든 요청에 대해 accessToken 확인)
+        JwtAuthorizationFilter authorizationFilter = new JwtAuthorizationFilter(jwtUtil, redisUtil);
+
+        // 필터 순서 중요: 권한 필터는 로그인 필터보다 먼저 실행돼야 함
+        http
+                .addFilterBefore(authorizationFilter, UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(loginFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }

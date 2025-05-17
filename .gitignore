@@ -40,4 +40,4 @@ out/
 application-dev.yml
 
 ### .env###
-.env
+src/main/resources/env/.env.properties
