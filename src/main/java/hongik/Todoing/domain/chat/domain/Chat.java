@@ -1,6 +1,6 @@
 package hongik.Todoing.domain.chat.domain;
 
-import hongik.Todoing.domain.community.domain.Community;
+
 import hongik.Todoing.domain.member.domain.Member;
 import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -28,8 +28,5 @@ public class Chat extends BaseEntity {
     @JoinColumn(name = "sender_id")
     private Member sender;
 
-    @ManyToOne
-    @JoinColumn(name = "community_id")
-    private Community community;
 
 }

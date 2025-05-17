@@ -20,11 +20,18 @@ public class Friend extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING)
+    private FriendStatus status;
+
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private Member member;
 
     @ManyToOne
     @JoinColumn(name = "friend_id")
     private Member friend;
+
+    public void updateStatus(FriendStatus status) {
+        this.status = status;
+    }
 }

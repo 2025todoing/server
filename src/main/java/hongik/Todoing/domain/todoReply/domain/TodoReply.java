@@ -22,16 +22,12 @@ public class TodoReply extends BaseEntity {
 
     private String content;
 
-    // 댓글 작성자의 역할을 구분하는 필드임.
-    @Enumerated(EnumType.STRING)
-    private ReplyType replyType;
-
     @ManyToOne
     @JoinColumn(name = "todo_id")
     private Todo todo;
 
     @ManyToOne
-    @JoinColumn(name = "member_id")
+    @JoinColumn(name = "user_id")
     private Member member;
 
 }

@@ -20,8 +20,7 @@ public class Verification {
     private Long verificationId;
 
     // 여기는 뭐로 해야하지?
+    @Enumerated(EnumType.STRING)
     private VerificationType type;
 
-    @OneToMany(mappedBy = "verification")
-    private List<Todo> todos;
 }
