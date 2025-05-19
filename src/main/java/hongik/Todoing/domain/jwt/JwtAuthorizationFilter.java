@@ -2,6 +2,8 @@ package hongik.Todoing.domain.jwt;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import hongik.Todoing.domain.auth.util.PrincipalDetails;
+import hongik.Todoing.domain.member.domain.Member;
+import hongik.Todoing.domain.member.repository.MemberRepository;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.util.RedisUtil;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -27,6 +29,7 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final RedisUtil redisUtil;
+    private final MemberRepository memberRepository;
     @Override
     protected void doFilterInternal(
             @NotNull HttpServletRequest request,
@@ -48,11 +51,14 @@ public class JwtAuthorizationFilter extends OncePerRequestFilter {
             jwtUtil.validationToken(accessToken);
 
             // accessToken 을 기반으로 principalDetail 저장
-            PrincipalDetails principalDetails = new PrincipalDetails(
-                    jwtUtil.getUsername(accessToken),
-                    null,
-                    jwtUtil.getRoles(accessToken)
-            );
+            String email = jwtUtil.getUsername(accessToken);
+
+            Member member = memberRepository.findByEmail(email)
+                    .orElseThrow(()->new RuntimeException("User not found"));
+
+            PrincipalDetails principalDetails = new PrincipalDetails(member);
+
+
 
             // 스프링 시큐리티 인증 토큰 생성
             Authentication authToken = new UsernamePasswordAuthenticationToken(

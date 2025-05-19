@@ -26,7 +26,8 @@ public class SelfTodoService {
 
 
     public void createTodo(Member member, TodoCreateRequestDTO request) {
-        Label label = labelRepository.findByLabelId(request.labelId());
+        Label label = labelRepository.findByLabelName(request.labelType())
+                .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
 
         Todo todo = Todo.builder()
                 .member(member)

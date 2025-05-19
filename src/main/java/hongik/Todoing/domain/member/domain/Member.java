@@ -2,6 +2,7 @@ package hongik.Todoing.domain.member.domain;
 
 import hongik.Todoing.domain.chat.domain.Chat;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -24,6 +25,9 @@ public class Member {
 
     private String name;
     private String password;
+
+    @Email
+    @Column(unique = true)
     private String email;
     private String role; // ROLE_USER, ROLE_ADMIN
 

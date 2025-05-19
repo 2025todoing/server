@@ -20,7 +20,7 @@ import java.util.List;
 public class Todo extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long todoId;
+    private Long id;
 
     private String content;
     private LocalDate todoDate;
