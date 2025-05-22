@@ -54,7 +54,7 @@ public class SelfTodoService {
         Todo todo = todoRepository.findByTodoId(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().equals(member)) {
+        if(!todo.getMember().getEmail().equals(member.getEmail())) {
             throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 
@@ -79,7 +79,7 @@ public class SelfTodoService {
         Todo todo = todoRepository.findByTodoId(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().equals(member)) {
+        if(!todo.getMember().getEmail().equals(member.getEmail())) {
             throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 
