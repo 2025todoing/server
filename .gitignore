@@ -38,6 +38,13 @@ out/
 
 ### application.yml###
 application-dev.yml
+application-test.yml
 
 ### .env###
 src/main/resources/env/.env.properties
+
+### docker-compose ###
+docker-compose.yml
+
+### deloy.yml ###
+deploy.yml

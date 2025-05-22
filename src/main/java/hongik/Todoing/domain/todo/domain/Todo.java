@@ -6,6 +6,7 @@ import hongik.Todoing.domain.todoReply.domain.TodoReply;
 import hongik.Todoing.domain.verification.domain.Verification;
 import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 import java.time.LocalDate;
@@ -16,19 +17,25 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-@Setter
+@Table(name = "todo")
 public class Todo extends BaseEntity {
     @Id
+    @Column(name = "todo_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoId;
 
+    @Column(length = 15)
+    @NotNull
     private String content;
+
+    @NotNull
     private LocalDate todoDate;
+
     private boolean isAiNeeded;
     private boolean isCompleted;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private Member member;
 
