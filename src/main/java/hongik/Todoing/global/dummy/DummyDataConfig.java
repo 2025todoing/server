@@ -29,7 +29,7 @@ public class DummyDataConfig {
                 Member dummy = Member.builder()
                         .name("todoingTest")
                         .password(passwordEncoder.encode("1234")) // 1234를 bcrypt로 인코딩
-                        .email("hyesoohan@example.com")
+                        .email("test@example.com")
                         .role("ROLE_USER")
                         .build();
                 memberRepository.save(dummy);

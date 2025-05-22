@@ -55,7 +55,7 @@ public class SelfTodoService {
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
         if(!todo.getMember().equals(member)) {
-            throw new GeneralException(ErrorStatus.TODO_NOT_FOUND);
+            throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 
         todoRepository.delete(todo);
