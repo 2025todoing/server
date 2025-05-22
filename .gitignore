@@ -45,3 +45,6 @@ src/main/resources/env/.env.properties
 
 ### docker-compose ###
 docker-compose.yml
+
+### deloy.yml ###
+deploy.yml
