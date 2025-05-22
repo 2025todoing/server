@@ -3,6 +3,7 @@ package hongik.Todoing.global.config;
 import hongik.Todoing.domain.jwt.JwtAuthenticationFilter;
 import hongik.Todoing.domain.jwt.JwtAuthorizationFilter;
 import hongik.Todoing.domain.jwt.JwtUtil;
+import hongik.Todoing.domain.member.repository.MemberRepository;
 import hongik.Todoing.global.util.RedisUtil;
 import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
@@ -25,6 +26,7 @@ public class SecurityConfig {
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtUtil jwtUtil;
     private final RedisUtil redisUtil;
+    private final MemberRepository memberRepository;
     private final String[] allowedUrls = {"/login",
             "/reissue", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/auth/login/kakao/**"
     };
@@ -80,7 +82,7 @@ public class SecurityConfig {
         loginFilter.setFilterProcessesUrl("/login");
 
         // ✅ JWT 권한 필터 (모든 요청에 대해 accessToken 확인)
-        JwtAuthorizationFilter authorizationFilter = new JwtAuthorizationFilter(jwtUtil, redisUtil);
+        JwtAuthorizationFilter authorizationFilter = new JwtAuthorizationFilter(jwtUtil, redisUtil, memberRepository);
 
         // 필터 순서 중요: 권한 필터는 로그인 필터보다 먼저 실행돼야 함
         http
