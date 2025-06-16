@@ -65,7 +65,7 @@ public class FriendController {
     }
 
     // 친구 투두 리스트 보기
-    @PostMapping("/{friendEmail}/todos")
+    @GetMapping("/{friendEmail}/todos")
     public ApiResponse<List<TodoResponseDTO>> getFriendTodos(
             @AuthenticationPrincipal PrincipalDetails principal,
             @PathVariable String friendEmail
