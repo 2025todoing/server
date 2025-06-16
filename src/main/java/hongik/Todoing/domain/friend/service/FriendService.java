@@ -3,6 +3,7 @@ package hongik.Todoing.domain.friend.service;
 import hongik.Todoing.domain.friend.converter.FriendConverter;
 import hongik.Todoing.domain.friend.domain.Friend;
 import hongik.Todoing.domain.friend.domain.FriendStatus;
+import hongik.Todoing.domain.friend.dto.FriendRequestDTO;
 import hongik.Todoing.domain.friend.dto.FriendResponseDTO;
 import hongik.Todoing.domain.friend.repository.FriendRepository;
 import hongik.Todoing.domain.member.domain.Member;
@@ -75,5 +76,11 @@ public class FriendService {
 
         List<Todo> todos = todoRepository.findByMember(target);
         return TodoConverter.toTodoDtoList(todos);
+    }
+
+    public Long getFriendId(String email) {
+        Member friend = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.FRIEND_NOT_FOUND));
+        return friend.getId();
     }
 }

@@ -29,7 +29,8 @@ public class FriendController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @RequestBody FriendRequestDTO request
             ) {
-        friendService.addFriend(principal.getMember(), request.friendId());
+        Long friendId = friendService.getFriendId(request.friendEmail());
+        friendService.addFriend(principal.getMember(), friendId);
         return ApiResponse.onSuccess(null);
     }
 
@@ -42,31 +43,34 @@ public class FriendController {
     }
 
     // 친구 삭제하기
-    @DeleteMapping("/{friendId}")
+    @DeleteMapping("/{friendEmail}")
     public ApiResponse<Void> deleteFriend(
             @AuthenticationPrincipal PrincipalDetails principal,
-            @PathVariable Long friendId
+            @PathVariable String friendEmail
     ) {
+        Long friendId = friendService.getFriendId(friendEmail);
         friendService.deleteFriend(principal.getMember(), friendId);
         return ApiResponse.onSuccess(null);
     }
 
     // 친구 차단하기
-    @PostMapping("/{friendId}/block")
+    @PostMapping("/{friendEmail}/block")
     public ApiResponse<Void> blockFriend(
             @AuthenticationPrincipal PrincipalDetails principal,
-            @PathVariable Long friendId
+            @PathVariable String friendEmail
     ) {
+        Long friendId = friendService.getFriendId(friendEmail);
         friendService.blockFriend(principal.getMember(), friendId);
         return ApiResponse.onSuccess(null);
     }
 
     // 친구 투두 리스트 보기
-    @PostMapping("/{friendId}/todos")
+    @PostMapping("/{friendEmail}/todos")
     public ApiResponse<List<TodoResponseDTO>> getFriendTodos(
             @AuthenticationPrincipal PrincipalDetails principal,
-            @PathVariable Long friendId
+            @PathVariable String friendEmail
     ) {
+        Long friendId = friendService.getFriendId(friendEmail);
         List<TodoResponseDTO> todoList = friendService.getFriendTodos(principal.getMember(), friendId);
         return ApiResponse.onSuccess(todoList);
     }
