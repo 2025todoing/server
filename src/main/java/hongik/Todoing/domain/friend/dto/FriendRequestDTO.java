@@ -3,9 +3,9 @@ package hongik.Todoing.domain.friend.dto;
 import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
 import hongik.Todoing.global.apiPayload.exception.GeneralException;
 
-public record FriendRequestDTO(Long friendId) {
+public record FriendRequestDTO(String friendEmail) {
     public FriendRequestDTO {
-        if (friendId == null) {
+        if (friendEmail == null) {
             throw new GeneralException(ErrorStatus.FRIEND_REQUEST_IS_NULL);
         }
     }
