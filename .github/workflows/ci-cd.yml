@@ -48,7 +48,11 @@ jobs:
       
     - name: Build with Gradle
       run: ./gradlew bootJar -x test
-        
+
+    # Docker Clean
+    - name: Clean up Docker disk space
+      run: docker system prune -af || true
+    
     # Docker image build
     - name: Build images docker
       run: docker build -t ${{ secrets.DOCKER_USERNAME }}/hongik-todoing .
