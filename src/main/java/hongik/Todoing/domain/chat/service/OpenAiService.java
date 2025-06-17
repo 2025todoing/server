@@ -7,6 +7,7 @@ import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.util.*;
@@ -21,7 +22,9 @@ public class OpenAiService {
     private String loadSystemPrompt() {
         try {
             ClassPathResource resource = new ClassPathResource("prompt/prompt.txt");
-            return Files.readString(resource.getFile().toPath(), StandardCharsets.UTF_8);
+            try (InputStream is = resource.getInputStream()) {
+                return new String(is.readAllBytes(), StandardCharsets.UTF_8);
+            }
         } catch (Exception e) {
             throw new RuntimeException("시스템 프롬프트 파일 로딩 실패", e);
         }
