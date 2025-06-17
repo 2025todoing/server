@@ -7,11 +7,22 @@ server:
       force: true
 
 spring:
+
+  ai:
+    model:
+      chat:
+        options:
+          model: gpt-3.5-turbo # ✅ 이 줄 반드시 추가!
+    openai:
+      api-key: ${OPENAI_API_KEY}
+
   datasource:
     url: ${SPRING_DATASOURCE_URL}
     username: ${SPRING_DATASOURCE_USERNAME}
     password: ${SPRING_DATASOURCE_PASSWORD}
     driver-class-name: com.mysql.cj.jdbc.Driver
+
+
 
 
   jpa:

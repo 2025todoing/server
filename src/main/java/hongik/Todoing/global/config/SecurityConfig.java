@@ -28,7 +28,7 @@ public class SecurityConfig {
     private final RedisUtil redisUtil;
     private final MemberRepository memberRepository;
     private final String[] allowedUrls = {"/login",
-            "/reissue", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/auth/login/kakao/**"
+            "/reissue", "/swagger-ui/**", "/swagger-resources/**", "/v3/api-docs/**", "/auth/login/kakao/**","/chat"
     };
 
     @Bean
