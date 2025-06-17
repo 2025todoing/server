@@ -20,7 +20,9 @@ public class FriendConverter {
 
     public static FriendResponseDTO toFriendResponse(Friend friend) {
         Member target = friend.getFriend();
-        return new FriendResponseDTO(target.getName(),
+        return new FriendResponseDTO(
+                target.getId(),
+                target.getName(),
                 friend.getStatus());
     }
 
