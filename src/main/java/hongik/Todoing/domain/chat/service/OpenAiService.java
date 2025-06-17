@@ -2,6 +2,7 @@ package hongik.Todoing.domain.chat.service;
 import hongik.Todoing.domain.chat.dto.ChatResponseDTO;
 import hongik.Todoing.domain.chat.dto.ChatSessionState;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -18,6 +19,10 @@ public class OpenAiService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ChatSessionService sessionService;
+
+    @Value("${spring.ai.openai.api-key}")
+    private String openaiApiKey;
+
 
     private String loadSystemPrompt() {
         try {
@@ -37,12 +42,18 @@ public class OpenAiService {
 
         String url = "https://api.openai.com/v1/chat/completions";
 
-        //매 요청마다 최신 apiKey를 읽는다
-        String apiKey = System.getenv("OPENAI_API_KEY");
+        System.out.println("==== OPENAI API KEY ====");
+        System.out.println(openaiApiKey);
+        System.out.println("=========================");
+
+        System.out.println("✅ key length = " + openaiApiKey.length());
+        System.out.println("✅ prefix = " + openaiApiKey.substring(0, 10));
+        System.out.println("✅ suffix = " + openaiApiKey.substring(openaiApiKey.length() - 5));
+
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
-        headers.setBearerAuth(apiKey);
+        headers.setBearerAuth(openaiApiKey);
 
         String systemPrompt = String.format(
                 loadSystemPrompt(),

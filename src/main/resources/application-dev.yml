@@ -7,7 +7,6 @@ server:
       force: true
 
 spring:
-
   ai:
     model:
       chat:
@@ -50,7 +49,7 @@ spring:
 
     data:
       redis:
-        host: redis
+        host: localhost
         port: 6379
 
 
