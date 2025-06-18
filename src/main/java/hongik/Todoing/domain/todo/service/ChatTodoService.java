@@ -27,21 +27,32 @@ public class ChatTodoService {
 
     @Transactional
     public void createTodo(Member member, ChatTodoCreateRequestDTO requestDTO, ChatSessionState sessionState){
-        Label label = labelRepository.findByLabelName(LabelType.valueOf(sessionState.getCategory().toUpperCase()))
-                .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
+        try {
+            Label label = labelRepository.findByLabelName(
+                    LabelType.valueOf(sessionState.getCategory().toUpperCase())
+            ).orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
 
-        for (ChatTodoCreateRequestDTO.SubQuest subQuest : requestDTO.getSubQuests()) {
-            Todo todo = Todo.builder()
-                    .member(member)
-                    .content(subQuest.getTask())
-                    .todoDate(LocalDate.parse(subQuest.getDate()))
-                    .label(label)
-                    .isAiNeeded(false)
-                    .isCompleted(false)
-                    .build();
+            for (ChatTodoCreateRequestDTO.SubQuest subQuest : requestDTO.getSubQuests()) {
+                System.out.println("📌 SubQuest: task=" + subQuest.getTask() + ", date=" + subQuest.getDate());
+                Todo todo = Todo.builder()
+                        .member(member)
+                        .content(subQuest.getTask())
+                        .todoDate(LocalDate.parse(subQuest.getDate()))
+                        .label(label)
+                        .isAiNeeded(false)
+                        .isCompleted(false)
+                        .build();
 
-            todoRepository.save(todo);
+                todoRepository.save(todo);
+                System.out.println("✅ Todo saved: " + todo.getContent());
+            }
+        } catch (Exception e) {
+            System.out.println("❌ 예외 발생: " + e.getClass().getSimpleName());
+            System.out.println("💬 메시지: " + e.getMessage());
+            e.printStackTrace(); // 필요 시 포함
+            throw e; //
         }
+
 
     }
 
