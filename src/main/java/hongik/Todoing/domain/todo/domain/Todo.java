@@ -24,7 +24,7 @@ public class Todo extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long todoId;
 
-    @Column(length = 15)
+    @Column(length = 50)
     @NotNull
     private String content;
 
