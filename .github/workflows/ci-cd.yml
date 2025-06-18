@@ -39,6 +39,8 @@ jobs:
         sed -i 's|${JWT_REFRESH_EXPIRE}|'"${{ secrets.JWT_REFRESH_EXPIRE }}"'|g' application-dev.yml
         sed -i 's|${KAKAO_CLIENT_ID}|'"${{ secrets.KAKAO_CLIENT_ID }}"'|g' application-dev.yml
         sed -i 's|${KAKAO_REDIRECT_URI}|'"${{ secrets.KAKAO_REDIRECT_URI }}"'|g' application-dev.yml
+        sed -i "s#\${OPENAI_API_KEY}#${{ secrets.OPENAI_API_KEY }}#g" application-dev.yml
+        
       
     - name: Setup Gradle
       uses: gradle/actions/setup-gradle@v4

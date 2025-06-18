@@ -2,9 +2,13 @@ package hongik.Todoing.domain.todo.controller;
 
 
 import hongik.Todoing.domain.auth.util.PrincipalDetails;
+import hongik.Todoing.domain.chat.dto.ChatSessionState;
+import hongik.Todoing.domain.chat.service.ChatSessionService;
+import hongik.Todoing.domain.todo.dto.request.ChatTodoCreateRequestDTO;
 import hongik.Todoing.domain.todo.dto.request.TodoCreateRequestDTO;
 import hongik.Todoing.domain.todo.dto.request.TodoUpdateRequestDTO;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
+import hongik.Todoing.domain.todo.service.ChatTodoService;
 import hongik.Todoing.domain.todo.service.SelfTodoService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
@@ -24,6 +28,8 @@ import java.util.List;
 public class TodoController {
 
     private final SelfTodoService selfTodoService;
+    private final ChatSessionService chatSessionService;
+    private final ChatTodoService chatTodoService;
 
     // 투두리스트 만들기 - self
     @PostMapping
@@ -76,6 +82,20 @@ public class TodoController {
     ) {
         selfTodoService.toggleTodo(principal.getMember(), todoId);
         return ApiResponse.onSuccess(null);
+    }
+
+    @PostMapping("/chat")
+    public ApiResponse<Void> createTodoWithChat(
+            @AuthenticationPrincipal PrincipalDetails principal,
+            @RequestBody ChatTodoCreateRequestDTO requestDTO){
+
+        ChatSessionState sessionState = chatSessionService.get(principal.getUsername());
+        if(sessionState == null ){
+            return ApiResponse.onSuccess(null);
+        }
+        chatTodoService.createTodo(principal.getMember(), requestDTO, sessionState);
+        return ApiResponse.onSuccess(null);
+
     }
 
 

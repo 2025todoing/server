@@ -42,14 +42,6 @@ public class OpenAiService {
 
         String url = "https://api.openai.com/v1/chat/completions";
 
-        System.out.println("==== OPENAI API KEY ====");
-        System.out.println(openaiApiKey);
-        System.out.println("=========================");
-
-        System.out.println("✅ key length = " + openaiApiKey.length());
-        System.out.println("✅ prefix = " + openaiApiKey.substring(0, 10));
-        System.out.println("✅ suffix = " + openaiApiKey.substring(openaiApiKey.length() - 5));
-
 
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
