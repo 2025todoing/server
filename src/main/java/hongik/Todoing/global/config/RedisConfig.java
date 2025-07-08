@@ -39,10 +39,17 @@ public class RedisConfig {
     public RedisTemplate<String, ChatSessionState> chatSessionRedisTemplate(RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, ChatSessionState> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(connectionFactory);
-
         redisTemplate.setKeySerializer(new StringRedisSerializer());
         redisTemplate.setValueSerializer(new GenericJackson2JsonRedisSerializer()); // JSON 직렬화
+        return redisTemplate;
+    }
 
+    @Bean
+    public RedisTemplate<String, String> stringRedisTemplate(RedisConnectionFactory connectionFactory) {
+        RedisTemplate<String, String> redisTemplate = new RedisTemplate<>();
+        redisTemplate.setConnectionFactory(connectionFactory);
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        redisTemplate.setValueSerializer(new StringRedisSerializer());
         return redisTemplate;
     }
 }

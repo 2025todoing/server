@@ -7,5 +7,5 @@ import java.time.LocalDate;
 public record TodoCreateRequestDTO(
         String content,
         LocalDate todoDate,
-        LabelType labelType
+        Long labelId
 ) {}

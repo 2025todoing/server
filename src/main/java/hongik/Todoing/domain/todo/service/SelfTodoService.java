@@ -13,24 +13,20 @@ import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
 import hongik.Todoing.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-@Transactional(readOnly = true)
 public class SelfTodoService {
 
     private final LabelRepository labelRepository;
     private final TodoRepository todoRepository;
 
 
-    @Transactional
     public void createTodo(Member member, TodoCreateRequestDTO request) {
-        Label label = labelRepository.findByLabelName(request.labelType())
-                .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
+        Label label = labelRepository.findByLabelId(request.labelId());
 
         Todo todo = Todo.builder()
                 .member(member)
@@ -49,42 +45,37 @@ public class SelfTodoService {
         return TodoConverter.toTodoDtoList(todos);
     }
 
-    @Transactional
     public void deleteTodo(Member member, Long todoId) {
-        Todo todo = todoRepository.findByTodoId(todoId)
+        Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
-            throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
+        if(!todo.getMember().equals(member)) {
+            throw new GeneralException(ErrorStatus.TODO_NOT_FOUND);
         }
 
         todoRepository.delete(todo);
     }
 
-    @Transactional
     public void toggleTodo(Member member, Long todoId) {
-        Todo todo = todoRepository.findByTodoId(todoId)
+        Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
-            throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
+        if(!todo.getMember().equals(member)) {
+            throw new GeneralException(ErrorStatus.TODO_NOT_FOUND);
         }
-
 
         todo.updateComplete(!todo.isCompleted());
     }
 
-    @Transactional
     public void updateTodo(Member member, Long todoId, TodoUpdateRequestDTO requestDTO) {
-        Todo todo = todoRepository.findByTodoId(todoId)
+        Todo todo = todoRepository.findById(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
-            throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
+        if(!todo.getMember().equals(member)) {
+            throw new GeneralException(ErrorStatus.TODO_NOT_FOUND);
         }
 
-        Label label = labelRepository.findByLabelName(requestDTO.labelType())
-                .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
+        Label label = labelRepository.findByLabelId(requestDTO.labelId());
 
         todo.updateTodo(requestDTO.content(), requestDTO.date(), label);
     }
