@@ -76,4 +76,10 @@ public class FriendService {
         List<Todo> todos = todoRepository.findByMember(target);
         return TodoConverter.toTodoDtoList(todos);
     }
+
+    public Long getFriendId(String email) {
+        Member friend = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new GeneralException(ErrorStatus.FRIEND_NOT_FOUND));
+        return friend.getId();
+    }
 }

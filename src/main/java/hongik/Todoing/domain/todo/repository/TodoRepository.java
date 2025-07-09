@@ -8,9 +8,12 @@ import org.springframework.data.repository.query.Param;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
     List<Todo> findByMember(Member member);
+
+    Optional<Todo> findByTodoId(Long todoId);
 
     // todo 볼 때 라벨별로 봐야 함.
     @Query("""

@@ -54,9 +54,7 @@ public class OpenAiService {
                 session.getStartDate(),
                 session.getEndDate()
         );
-        System.out.println("==== System Prompt Start ====");
-        System.out.println(systemPrompt);
-        System.out.println("==== System Prompt End ====");
+
         //시스템 프롬프트 추가
         Map<String, Object> systemMessage = Map.of(
                 "role", "system",
