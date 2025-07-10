@@ -50,7 +50,7 @@ public class ThrottleAspect {
             throw new RuntimeException("요청이 너무 자주 발생했습니다. 잠시만 기다려주세요.");
         }
 
-        log.debug("[Throttle] 요청 허용. key={}, duration={}s", key, duration.getSeconds());
+        log.info("[Throttle] 요청 허용. key={}, duration={}s", key, duration.getSeconds());
         return joinPoint.proceed(); // 실제 메서드 실행
     }
 }

@@ -38,7 +38,7 @@ public class ChatController {
 
     }
 
-    @Throttle(seconds = 2)
+    @Throttle(seconds = 10)
     @PostMapping("/message")
     public ApiResponse<ChatResponseDTO> chat(@AuthenticationPrincipal PrincipalDetails principal, @RequestBody ChatRequestDTO requestDTO) {
 
