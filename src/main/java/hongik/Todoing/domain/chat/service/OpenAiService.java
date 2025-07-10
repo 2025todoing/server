@@ -1,6 +1,7 @@
 package hongik.Todoing.domain.chat.service;
 import hongik.Todoing.domain.chat.dto.ChatResponseDTO;
 import hongik.Todoing.domain.chat.dto.ChatSessionState;
+import hongik.Todoing.global.prompt.SystemPromptLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
@@ -19,21 +20,11 @@ public class OpenAiService {
 
     private final RestTemplate restTemplate = new RestTemplate();
     private final ChatSessionService sessionService;
+    private final SystemPromptLoader systemPromptLoader;
 
     @Value("${spring.ai.openai.api-key}")
     private String openaiApiKey;
 
-
-    private String loadSystemPrompt() {
-        try {
-            ClassPathResource resource = new ClassPathResource("prompt/prompt.txt");
-            try (InputStream is = resource.getInputStream()) {
-                return new String(is.readAllBytes(), StandardCharsets.UTF_8);
-            }
-        } catch (Exception e) {
-            throw new RuntimeException("시스템 프롬프트 파일 로딩 실패", e);
-        }
-    }
 
 
     public ChatResponseDTO ask(String userId, String prompt) {
@@ -48,7 +39,7 @@ public class OpenAiService {
         headers.setBearerAuth(openaiApiKey);
 
         String systemPrompt = String.format(
-                loadSystemPrompt(),
+                systemPromptLoader.loadPrompt(),
                 session.getCategory(),
                 session.getLevel(),
                 session.getStartDate(),
