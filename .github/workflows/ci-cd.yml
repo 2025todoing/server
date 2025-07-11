@@ -28,6 +28,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
+    - name: Set Google_Application_Credentials
+      run: |
+        echo "${{ secrets.GOOGLE_CREDENTIAL }}" > ${{ github.workspace }}/gcloud-key.json
+        echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcloud-key.json" >> $GITHUB_ENV
+
     - name: setup dev.yml
       run: |
         cd ./src/main/resources
