@@ -28,12 +28,19 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
 
-    - name: Set GOOGLE_APPLICATION_CREDENTIALS
+    - name: Prepare EC2 SSH key
+      run: |
+        mkdir -p ~/.ssh
+        echo "${{ secrets.EC2_KEY }}" > ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
+
+    - name: Upload gcloud-key.json to EC2
       env:
         GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
       run: |
-        echo "$GOOGLE_CREDENTIAL" > ${{ github.workspace }}/gcloud-key.json
-        echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcloud-key.json" >> $GITHUB_ENV
+        echo "$GOOGLE_CREDENTIAL" > gcloud-key.json
+        scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa \
+          gcloud-key.json ec2-user@${{ secrets.EC2_HOST_IP }}:/home/ec2-user/
 
 
 
