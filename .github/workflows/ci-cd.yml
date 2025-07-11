@@ -109,6 +109,6 @@ jobs:
                       -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
                       -e KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }} \
                       -e GOOGLE_APPLICATION_CREDENTIALS=/app/gcloud-key.json \
-                      -v /home/ec2-user/gcloud-key.json:/app/gcloud-key.json \
+                      -v /home/ubuntu/gcloud-key.json:/app/gcloud-key.json \
                       --name hongik-todoing \
                       -p 8080:8080 -d ${{ secrets.DOCKER_USERNAME }}/hongik-todoing
