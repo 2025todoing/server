@@ -29,11 +29,12 @@ jobs:
         distribution: 'temurin'
 
     - name: Set GOOGLE_APPLICATION_CREDENTIALS
+      env:
+        GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
       run: |
         echo "$GOOGLE_CREDENTIAL" > ${{ github.workspace }}/gcloud-key.json
         echo "GOOGLE_APPLICATION_CREDENTIALS=${{ github.workspace }}/gcloud-key.json" >> $GITHUB_ENV
-        env:
-          GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
+
 
 
     - name: setup dev.yml
