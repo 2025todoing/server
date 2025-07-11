@@ -40,7 +40,7 @@ jobs:
       run: |
         echo "$GOOGLE_CREDENTIAL" > gcloud-key.json
         scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa \
-          gcloud-key.json ec2-user@${{ secrets.EC2_HOST_IP }}:/home/ec2-user/
+          gcloud-key.json ubuntu@${{ secrets.EC2_HOST_IP }}:/home/ec2-user/
 
 
 
