@@ -37,7 +37,7 @@ public class SelfTodoService {
                 .content(request.content())
                 .todoDate(request.todoDate())
                 .label(label)
-                .isAiNeeded(false)
+                .isAiNeeded(request.isAiNeeded())
                 .isCompleted(false)
                 .build();
 

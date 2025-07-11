@@ -7,6 +7,7 @@ import hongik.Todoing.domain.friend.service.FriendService;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import hongik.Todoing.global.apiPayload.code.status.SuccessStatus;
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -24,6 +25,7 @@ public class FriendController {
 
 
     // 친구 추가 - email로 추가
+    @Operation(summary = "친구를 추가합니다.")
     @PostMapping
     public ApiResponse<Void> addFriend(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -35,6 +37,7 @@ public class FriendController {
     }
 
     // 친구 내역 보기 - Id, name, status 반환
+    @Operation(summary = "친구 목록을 조회합니다.")
     @GetMapping
     public ApiResponse<List<FriendResponseDTO>> getMyFriends(
             @AuthenticationPrincipal PrincipalDetails principal
@@ -43,6 +46,7 @@ public class FriendController {
     }
 
     // 친구 삭제하기 - id로 삭제
+    @Operation(summary = "친구를 삭제합니다.")
     @DeleteMapping("/{friendId}")
     public ApiResponse<Void> deleteFriend(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -53,6 +57,7 @@ public class FriendController {
     }
 
     // 친구 차단하기 - id로 차단
+    @Operation(summary = "친구 Id로 차단합니다.")
     @PostMapping("/{friendId}/block")
     public ApiResponse<Void> blockFriend(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -63,6 +68,7 @@ public class FriendController {
     }
 
     // 친구 투두 리스트 보기 - id로 보기, 날짜에 따라서 todo 주기
+    @Operation(summary = "친구의 id로 투두를 봅니다.")
     @GetMapping("/{friendId}/todos")
     public ApiResponse<List<TodoResponseDTO>> getFriendTodos(
             @AuthenticationPrincipal PrincipalDetails principal,
