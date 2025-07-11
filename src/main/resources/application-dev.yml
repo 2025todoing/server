@@ -15,7 +15,7 @@ spring:
       api-key: ${OPENAI_API_KEY}
 
   datasource:
-    url: jdbc:mysql://localhost:3306/todoing
+    url: ${SPRING_DATASOURCE_URL}
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
 
