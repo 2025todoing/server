@@ -7,5 +7,6 @@ import java.time.LocalDate;
 public record TodoCreateRequestDTO(
         String content,
         LocalDate todoDate,
-        LabelType labelType
+        LabelType labelType,
+        Boolean isAiNeeded
 ) {}

@@ -12,6 +12,7 @@ import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
 import hongik.Todoing.global.apiPayload.code.status.SuccessStatus;
 import hongik.Todoing.global.apiPayload.exception.GeneralException;
 import io.jsonwebtoken.ExpiredJwtException;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ public class AuthController {
     private final JwtUtil jwtUtil;
     private final AuthService authService;
 
+    @Operation(summary = "토큰을 재발급합니다.")
     @GetMapping("/reissue")
     public ApiResponse<JwtDTO> reissueToken(@RequestHeader("RefreshToken") String refreshToken ) {
         try {
@@ -40,6 +42,7 @@ public class AuthController {
         }
     }
 
+    @Operation(summary = "카카오톡으로 로그인합니다.")
     @GetMapping("/login/kakao")
     public ApiResponse<?> kakaoLogin(@RequestParam("code") String accessCode, HttpServletResponse response) {
         Member member = authService.loginByOAuth(accessCode, response);
@@ -49,6 +52,7 @@ public class AuthController {
     }
 
     // 로그인
+    @Operation(summary = "일반 로그인합니다.")
     @PostMapping("/login")
     public ApiResponse<JwtDTO> loginWithEmail(@RequestBody LoginRequestDTO request) {
         JwtDTO jwtDTO = authService.loginByEmail(request.email(), request.password());
@@ -56,6 +60,7 @@ public class AuthController {
     }
 
     // 회원 가입
+    @Operation(summary = "회원 가입합니다.")
     @PostMapping("/signup")
     public ApiResponse<?> signUpWithEmail(@RequestBody SignUpRequestDto request) {
         authService.signUpByEmail(request);
