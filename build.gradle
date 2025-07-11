@@ -63,6 +63,9 @@ dependencies {
 
 	// redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
+
+	// Google Cloud Vision
+	implementation 'com.google.cloud:google-cloud-vision:3.61.0'
 }
 
 tasks.named('test') {
