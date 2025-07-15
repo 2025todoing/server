@@ -58,7 +58,7 @@ public class OpenAiService {
 
         List<Map<String, Object>> messages = List.of(systemMessage, message);
 
-        // ✅ 로그 추가 - 최종 프롬프트 확인용
+        // 로그 추가 - 최종 프롬프트 확인용
         System.out.println("[ChatGPT 요청 메시지]");
         for (Map<String, Object> msg : messages) {
             System.out.printf("role: %s\ncontent: %s\n\n", msg.get("role"), msg.get("content"));
@@ -85,3 +85,4 @@ public class OpenAiService {
         }
     }
 }
+
