@@ -56,10 +56,19 @@ public class OpenAiService {
                 "content", prompt
         );
 
+        List<Map<String, Object>> messages = List.of(systemMessage, message);
+
+        // ✅ 로그 추가 - 최종 프롬프트 확인용
+        System.out.println("[ChatGPT 요청 메시지]");
+        for (Map<String, Object> msg : messages) {
+            System.out.printf("role: %s\ncontent: %s\n\n", msg.get("role"), msg.get("content"));
+        }
+
         Map<String, Object> body = new HashMap<>();
         body.put("model", "gpt-3.5-turbo");
-        body.put("messages", List.of(systemMessage, message));
+        body.put("messages", messages);
         body.put("temperature", 0.7);
+
 
         HttpEntity<Map<String, Object>> entity = new HttpEntity<>(body, headers);
 
