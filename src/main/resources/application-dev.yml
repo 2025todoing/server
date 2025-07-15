@@ -10,7 +10,7 @@ spring:
     model:
       chat:
         options:
-          model: gpt-3.5-turbo # ✅ 이 줄 반드시 추가!
+          model: gpt-3.5-turbo
     openai:
       api-key: ${OPENAI_API_KEY}
 
