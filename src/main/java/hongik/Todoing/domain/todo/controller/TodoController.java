@@ -11,6 +11,7 @@ import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
 import hongik.Todoing.domain.todo.service.ChatTodoService;
 import hongik.Todoing.domain.todo.service.SelfTodoService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -30,6 +31,7 @@ public class TodoController {
     private final ChatTodoService chatTodoService;
 
     // 투두리스트 만들기 - self
+    @Operation(summary = "투두리스트를 생성합니다.")
     @PostMapping
     public ApiResponse<Void> createTodo(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -40,6 +42,7 @@ public class TodoController {
     }
 
     // 투두리스트 보기 - 날짜로
+    @Operation(summary = "투두리스트를 날짜로 조회합니다.")
     @GetMapping
     public ApiResponse<List<TodoResponseDTO>> getMyToos(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -51,6 +54,7 @@ public class TodoController {
 
 
     // 투두 삭제하기
+    @Operation(summary = "투두리스트를 삭제합니다.")
     @DeleteMapping("/{todoId}")
     public ApiResponse<Void> deleteTodo(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -62,6 +66,7 @@ public class TodoController {
 
 
     // 투두 수정하기
+    @Operation(summary = "투두리스트를 수정합니다.")
     @PutMapping("/{todoId}")
     public ApiResponse<Void> updateTodo(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -73,6 +78,7 @@ public class TodoController {
     }
 
     // 투두 완료-미완료 토글
+    @Operation(summary = "투두리스트의 성공 여부 토글")
     @PutMapping("/{todoId}/toggle")
     public ApiResponse<Void> toggleComplete(
             @AuthenticationPrincipal PrincipalDetails principal,
@@ -82,6 +88,7 @@ public class TodoController {
         return ApiResponse.onSuccess(null);
     }
 
+    @Operation(summary = "챗봇과 함께 투두리스트를 생성합니다.")
     @PostMapping("/chat")
     public ApiResponse<Void> createTodoWithChat(
             @AuthenticationPrincipal PrincipalDetails principal,
