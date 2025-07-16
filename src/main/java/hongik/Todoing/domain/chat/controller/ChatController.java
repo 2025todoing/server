@@ -42,7 +42,7 @@ public class ChatController {
     @PostMapping("/message")
     public ApiResponse<ChatResponseDTO> chat(@AuthenticationPrincipal PrincipalDetails principal, @RequestBody ChatRequestDTO requestDTO) {
 
-        ChatResponseDTO chatResponseDTO = openAiService.ask(principal.getUsername(), requestDTO.getPrompt());
+        ChatResponseDTO chatResponseDTO = openAiService.ask(principal.getUsername(), requestDTO.getMessages());
         return ApiResponse.onSuccess(chatResponseDTO);
 
     }
