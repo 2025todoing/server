@@ -1,0 +1,29 @@
+name: 기능 추가 요청
+description: 새로운 기능이 필요하다면 작성해 주세요.
+title: "[FEAT] "
+labels: ["enhancement"]
+assignees: []
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🚀 기능 추가 요청서
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 💡 기능 설명
+      description: 어떤 기능이 필요한지 구체적으로 작성해 주세요.
+      placeholder: "ex) 투두 만들기 기능"
+    validations:
+      required: true
+
+  - type: input
+    id: reason
+    attributes:
+      label: 🤔 필요 이유
+      description: 왜 이 기능이 필요한가요?
+      placeholder: "사용자 경험 개선, 접근성 향상 등"
+    validations:
+      required: false
