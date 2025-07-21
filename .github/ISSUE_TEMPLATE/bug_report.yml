@@ -1,0 +1,28 @@
+name: 버그 제보
+description: 버그 발생 시 사용해 주세요
+title: "[BUG] "
+labels: ["bug"]
+assignees: ''
+
+body:
+  - type: markdown
+    attributes:
+      value: |
+        ## 🐞 버그 제보서
+
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 설명
+      description: 어떤 문제가 있었는지 설명해주세요.
+      placeholder: "버그 내용 입력..."
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: ✅ 체크리스트
+      options:
+        - label: [ ] 재현 가능한 단계 포함
+        - label: [ ] 기대하는 동작 설명
