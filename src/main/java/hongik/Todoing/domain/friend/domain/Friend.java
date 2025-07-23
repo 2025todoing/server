@@ -34,4 +34,12 @@ public class Friend extends BaseEntity {
     public void updateStatus(FriendStatus status) {
         this.status = status;
     }
+
+    public static Friend of(Member me, Member target) {
+        return Friend.builder()
+                .member(me)
+                .friend(target)
+                .status(FriendStatus.ACCEPTED) // 초기 상태 (원하는 값으로)
+                .build();
+    }
 }

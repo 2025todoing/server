@@ -10,13 +10,6 @@ import java.util.List;
 
 @Component
 public class FriendConverter {
-    public static Friend toEntity(Member me, Member friend) {
-        return Friend.builder()
-                .member(me)
-                .friend(friend)
-                .status(FriendStatus.ACCEPTED)
-                .build();
-    }
 
     public static FriendResponseDTO toFriendResponse(Friend friend) {
         Member target = friend.getFriend();

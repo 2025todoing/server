@@ -31,8 +31,7 @@ public class FriendController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @RequestBody FriendRequestDTO request
             ) {
-        Long friendId = friendService.getFriendId(request.friendEmail());
-        friendService.addFriend(principal.getMember(), friendId);
+        friendService.addFriend(principal.getMember(), request.friendEmail());
         return ApiResponse.onSuccess(null);
     }
 

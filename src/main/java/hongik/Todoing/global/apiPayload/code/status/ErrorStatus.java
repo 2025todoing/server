@@ -47,7 +47,9 @@ public enum ErrorStatus implements BaseErrorCode {
     // 504 GATEWAY_TIMEOUT
     GATEWAY_TIMEOUT(HttpStatus.GATEWAY_TIMEOUT, "504", "서버가 응답하지 않습니다."),
     // 400 BAD_REQUEST
-    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "400", "잘못된 파라미터입니다.");
+    INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "400", "잘못된 파라미터입니다."),
+
+    CANNOT_BE_FRIEND_WITH_SELF(HttpStatus.BAD_REQUEST, "400", "스스로와 친구가 될 수 없습니다.");
 
     private final HttpStatus httpStatus;
     private final String code;
