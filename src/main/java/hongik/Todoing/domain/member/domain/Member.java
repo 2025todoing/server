@@ -1,6 +1,10 @@
 package hongik.Todoing.domain.member.domain;
 
 import hongik.Todoing.domain.chat.domain.Chat;
+import hongik.Todoing.domain.friend.domain.Friend;
+import hongik.Todoing.domain.friend.repository.FriendRepository;
+import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
+import hongik.Todoing.global.apiPayload.exception.GeneralException;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -40,5 +44,13 @@ public class Member {
 
     public void updatePassword(String password) {
         this.password = password;
+    }
+
+    public Friend createFriendship(Member target) {
+
+        if (this.equals(target)) {
+            throw new GeneralException(ErrorStatus.CANNOT_BE_FRIEND_WITH_SELF);
+        }
+        return Friend.of(this, target);
     }
 }

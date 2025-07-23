@@ -15,6 +15,7 @@ import hongik.Todoing.global.apiPayload.code.status.ErrorStatus;
 import hongik.Todoing.global.apiPayload.exception.GeneralException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -26,17 +27,19 @@ public class FriendService {
     private final FriendRepository friendRepository;
     private final TodoRepository todoRepository;
 
-    public void addFriend(Member me, Long friendId) {
-        Member target = memberRepository.findById(friendId)
+    @Transactional
+    public void addFriend(Member me, String friendEmail) {
+
+        Member target = memberRepository.findByEmail(friendEmail)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.MEMBER_NOT_FOUND));
 
-        if(friendRepository.existsByMemberAndFriend(me, target)) {
+        if (friendRepository.existsByMemberAndFriend(me, target)) {
             throw new GeneralException(ErrorStatus.FRIEND_REQUEST_DUPLICATED);
         }
 
-        Friend friend = FriendConverter.toEntity(me, target);
+        Friend friendship = me.createFriendship(target);
+        friendRepository.save(friendship);
 
-        friendRepository.save(friend);
     }
 
     public List<FriendResponseDTO> getMyFriends(Member me) {
@@ -77,9 +80,4 @@ public class FriendService {
         return TodoConverter.toTodoDtoList(todos);
     }
 
-    public Long getFriendId(String email) {
-        Member friend = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new GeneralException(ErrorStatus.FRIEND_NOT_FOUND));
-        return friend.getId();
-    }
 }

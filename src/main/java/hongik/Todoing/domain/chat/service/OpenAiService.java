@@ -39,34 +39,33 @@ public class OpenAiService {
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(openaiApiKey);
 
-        Map<String, String> promptSections = systemPromptLoader.getSections();
-        String sessionTemplate = promptSections.get("session");
-        String sessionFormatted = sessionTemplate
-                .replace("{{category}}", session.getCategory())
-                .replace("{{level}}", session.getLevel())
-                .replace("{{start_date}}", session.getStartDate())
-                .replace("{{end_date}}", session.getEndDate());
+
         List<Map<String, Object>> fullMessages = new ArrayList<>();
 
-        // SYSTEM
+// 1. 캐릭터/말투 정의 (Persona)
         fullMessages.add(Map.of(
                 "role", "system",
-                "content", promptSections.get("system")
+                "content", systemPromptLoader.get("persona")
         ));
 
-        // RULE
+// 2. JSON 포맷 강제 (Format)
         fullMessages.add(Map.of(
-                "role", "user",
-                "content", promptSections.get("rule")
+                "role", "system",
+                "content", systemPromptLoader.get("format")
         ));
 
-        // SESSION
+// 3. 세션 정보 (Session)
         fullMessages.add(Map.of(
-                "role", "user",
-                "content", sessionFormatted
+                "role", "system",
+                "content", systemPromptLoader.getSessionFormatted(
+                        session.getCategory(),
+                        session.getLevel(),
+                        session.getStartDate(),
+                        session.getEndDate()
+                )
         ));
 
-        // 유저 메세지
+// 4. 기존 대화 (user / assistant)
         fullMessages.addAll(
                 messages.stream().map(msg -> {
                     Map<String, Object> map = new HashMap<>();
@@ -76,14 +75,9 @@ public class OpenAiService {
                 }).collect(Collectors.toList())
         );
 
-        // 로그 출력
-        System.out.println("[ChatGPT 요청 메시지]");
-        fullMessages.forEach(msg ->
-                System.out.printf("role: %s\ncontent: %s\n\n", msg.get("role"), msg.get("content"))
-        );
 
         Map<String, Object> body = new HashMap<>();
-        body.put("model", "gpt-3.5-turbo");
+        body.put("model","gpt-4o");
         body.put("messages", fullMessages);
         body.put("temperature", 0.3);
 
