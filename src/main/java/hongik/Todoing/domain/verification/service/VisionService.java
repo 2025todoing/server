@@ -2,6 +2,7 @@ package hongik.Todoing.domain.verification.service;
 
 import com.google.cloud.vision.v1.*;
 import com.google.protobuf.ByteString;
+import hongik.Todoing.global.common.AuditingAi.AuditingAI;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -15,6 +16,7 @@ import java.util.List;
 public class VisionService {
 
     // 사진을 통한 글자 인증 api 호출기
+    @AuditingAI("사진을 통한 글자 인증 호출기")
     public List<EntityAnnotation> detectText(MultipartFile image) throws IOException {
         List<AnnotateImageRequest> requests = new ArrayList<>();
 
@@ -55,6 +57,7 @@ public class VisionService {
     }
 
     // 사진을 통한 객체 인식 - label 탐색기
+    @AuditingAI("사진을 통한 객체 인식 - label 탐색기")
     public List<EntityAnnotation> detectLabels(MultipartFile file) throws IOException {
         ByteString imgBytes = ByteString.readFrom(file.getInputStream());
 
