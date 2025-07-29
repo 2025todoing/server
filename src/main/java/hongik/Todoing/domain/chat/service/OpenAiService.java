@@ -83,6 +83,11 @@ public class OpenAiService {
 
         HttpEntity<Map<String, Object>> entity = new
                 HttpEntity<>(body, headers);
+
+        System.out.println("=== Final Prompt Sent to OpenAI ===");
+        fullMessages.forEach(msg -> System.out.println(msg.get("role") + ": " + msg.get("content")));
+        System.out.println("===================================");
+
         ResponseEntity<Map> response = restTemplate.exchange(url, HttpMethod.POST, entity, Map.class);
 
         List<Map<String, Object>> choices = (List<Map<String, Object>>) response.getBody().get("choices");
