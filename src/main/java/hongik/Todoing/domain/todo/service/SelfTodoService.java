@@ -3,6 +3,7 @@ package hongik.Todoing.domain.todo.service;
 import hongik.Todoing.domain.label.domain.Label;
 import hongik.Todoing.domain.label.repository.LabelRepository;
 import hongik.Todoing.domain.member.domain.Member;
+import hongik.Todoing.domain.member.repository.MemberRepository;
 import hongik.Todoing.domain.todo.converter.TodoConverter;
 import hongik.Todoing.domain.todo.domain.Todo;
 import hongik.Todoing.domain.todo.dto.request.TodoCreateRequestDTO;
@@ -23,38 +24,39 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class SelfTodoService {
 
-    private final LabelRepository labelRepository;
     private final TodoRepository todoRepository;
-
+    private final MemberRepository memberRepository;
+    private final LabelRepository labelRepository;
 
     @Transactional
-    public void createTodo(Member member, TodoCreateRequestDTO request) {
-        Label label = labelRepository.findByLabelName(request.labelType())
-                .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
-
+    public void createTodo(Long memberId, String content, LocalDate todoDate, Label labelId, boolean isAiNeeded) {
         Todo todo = Todo.builder()
-                .member(member)
-                .content(request.content())
-                .todoDate(request.todoDate())
-                .label(label)
-                .isAiNeeded(request.isAiNeeded())
+                .memberId(memberId)
+                .content(content)
+                .todoDate(todoDate)
+                .label(labelId)
+                .isAiNeeded(isAiNeeded)
                 .isCompleted(false)
                 .build();
 
         todoRepository.save(todo);
     }
 
-    public List<TodoResponseDTO> getTodosByDate(Member member, LocalDate date) {
-        List<Todo> todos = todoRepository.findByMemberAndTodoDate(member, date);
+    public List<TodoResponseDTO> getTodosByDate(Long memberId, LocalDate date) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        List<Todo> todos = todoRepository.findByMemberIdAndTodoDate(member.getId(), date);
         return TodoConverter.toTodoDtoList(todos);
     }
 
     @Transactional
-    public void deleteTodo(Member member, Long todoId) {
+    public void deleteTodo(Long memberId, Long todoId) {
         Todo todo = todoRepository.findByTodoId(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
+        Member member = memberRepository.findById(memberId).orElseThrow();
+        Member member1 = memberRepository.findById(todo.getMemberId()).orElseThrow();
+
+        if(!member1.getEmail().equals(member.getEmail())) {
             throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 
@@ -62,11 +64,14 @@ public class SelfTodoService {
     }
 
     @Transactional
-    public void toggleTodo(Member member, Long todoId) {
+    public void toggleTodo(Long memberId, Long todoId) {
         Todo todo = todoRepository.findByTodoId(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
+        Member member1 = memberRepository.findById(todo.getMemberId()).orElseThrow();
+        Member member = memberRepository.findById(memberId).orElseThrow();
+
+        if(!member1.getEmail().equals(member.getEmail())) {
             throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 
@@ -75,11 +80,14 @@ public class SelfTodoService {
     }
 
     @Transactional
-    public void updateTodo(Member member, Long todoId, TodoUpdateRequestDTO requestDTO) {
+    public void updateTodo(Long memberId, Long todoId, TodoUpdateRequestDTO requestDTO) {
         Todo todo = todoRepository.findByTodoId(todoId)
                 .orElseThrow(() -> new GeneralException(ErrorStatus.TODO_NOT_FOUND));
 
-        if(!todo.getMember().getEmail().equals(member.getEmail())) {
+        Member member1 = memberRepository.findById(todo.getMemberId()).orElseThrow();
+        Member member = memberRepository.findById(memberId).orElseThrow();
+
+        if(!member1.getEmail().equals(member.getEmail())) {
             throw new GeneralException(ErrorStatus.MEMBER_NOT_FOUND);
         }
 

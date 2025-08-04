@@ -76,7 +76,7 @@ public class FriendService {
             throw new GeneralException(ErrorStatus.FRIEND_BLOCKED);
         }
 
-        List<Todo> todos = todoRepository.findByMember(target);
+        List<Todo> todos = todoRepository.findByMemberId(target.getId());
         return TodoConverter.toTodoDtoList(todos);
     }
 
