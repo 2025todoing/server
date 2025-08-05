@@ -27,14 +27,15 @@ public class SelfTodoService {
     private final TodoRepository todoRepository;
     private final MemberRepository memberRepository;
     private final LabelRepository labelRepository;
+    private final TodoConverter todoConverter;
 
     @Transactional
-    public void createTodo(Long memberId, String content, LocalDate todoDate, Label labelId, boolean isAiNeeded) {
+    public void createTodo(Long memberId, String content, LocalDate todoDate, Label label, boolean isAiNeeded) {
         Todo todo = Todo.builder()
                 .memberId(memberId)
                 .content(content)
                 .todoDate(todoDate)
-                .label(labelId)
+                .labelId(label.getLabelId())
                 .isAiNeeded(isAiNeeded)
                 .isCompleted(false)
                 .build();
@@ -45,7 +46,7 @@ public class SelfTodoService {
     public List<TodoResponseDTO> getTodosByDate(Long memberId, LocalDate date) {
         Member member = memberRepository.findById(memberId).orElseThrow();
         List<Todo> todos = todoRepository.findByMemberIdAndTodoDate(member.getId(), date);
-        return TodoConverter.toTodoDtoList(todos);
+        return todoConverter.toTodoDtoList(todos);
     }
 
     @Transactional
@@ -94,7 +95,7 @@ public class SelfTodoService {
         Label label = labelRepository.findByLabelName(requestDTO.labelType())
                 .orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
 
-        todo.updateTodo(requestDTO.content(), requestDTO.date(), label);
+        todo.updateTodo(requestDTO.content(), requestDTO.date(), label.getLabelId());
     }
 
 }

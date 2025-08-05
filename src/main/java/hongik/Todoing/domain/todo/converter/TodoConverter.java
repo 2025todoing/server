@@ -1,22 +1,22 @@
 package hongik.Todoing.domain.todo.converter;
 
 import hongik.Todoing.domain.label.domain.LabelType;
-import hongik.Todoing.domain.member.domain.Member;
+import hongik.Todoing.domain.label.repository.LabelRepository;
 import hongik.Todoing.domain.todo.domain.Todo;
-import hongik.Todoing.domain.todo.dto.request.TodoCreateRequestDTO;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
 
 @Component
+@RequiredArgsConstructor
 public class TodoConverter {
 
-    public static TodoResponseDTO toTodoDto(Todo todo) {
-        LabelType labelName = null;
-        if(todo.getLabel() != null) {
-            labelName = todo.getLabel().getLabelName();
-        }
+    private final LabelRepository labelRepository;
+
+    public TodoResponseDTO toTodoDto(Todo todo) {
+        LabelType labelName = labelRepository.findByLabelId(todo.getLabelId()).getLabelName();
 
         return new TodoResponseDTO(
                 todo.getTodoId(),
@@ -28,9 +28,9 @@ public class TodoConverter {
         );
     }
 
-    public static List<TodoResponseDTO> toTodoDtoList(List<Todo> todos) {
+    public List<TodoResponseDTO> toTodoDtoList(List<Todo> todos) {
         return  todos.stream()
-                .map(TodoConverter::toTodoDto)
+                .map(this::toTodoDto)
                 .toList();
     }
 

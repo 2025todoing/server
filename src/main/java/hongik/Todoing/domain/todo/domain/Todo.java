@@ -34,17 +34,14 @@ public class Todo extends BaseEntity {
     private boolean isAiNeeded;
     private boolean isCompleted;
 
-
     @Column(name = "user_id")
     private Long memberId;
 
-    @ManyToOne
-    @JoinColumn(name = "label_id")
-    private Label label;
+    @Column(name = "label_id", nullable = false)
+    private Long labelId;
 
-    @ManyToOne
-    @JoinColumn(name = "verification_id")
-    private Verification verification;
+    @Column(name = "verification_id", nullable = false)
+    private Long verification_id;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<TodoReply> replies;
@@ -52,10 +49,10 @@ public class Todo extends BaseEntity {
     public void updateComplete(boolean isCompleted) {
         this.isCompleted = isCompleted;
     }
-    public void updateTodo(String content, LocalDate todoDate, Label label) {
+    public void updateTodo(String content, LocalDate todoDate, Long labelId) {
         this.content = content;
         this.todoDate = todoDate;
-        this.label = label;
+        this.labelId = labelId;
     }
 
 
