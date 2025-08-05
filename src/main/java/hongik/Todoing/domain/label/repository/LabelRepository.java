@@ -12,3 +12,23 @@ public interface LabelRepository extends JpaRepository<Label, Long> {
     Optional<Label> findByLabelName(LabelType labelName);
     boolean existsByLabelName(LabelType labelType);
 }
+
+
+// aggregated ( 도메인 집합 )
+// 주문. --- 주문 아이템. -- 주문 옵션
+
+
+// entity
+
+
+// order
+//. @Eager ,, fecth
+// { prviate OrderItem items   }
+
+// 주문 --- 주문아이템 갯수를 수정.
+
+
+
+
+
+

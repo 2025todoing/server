@@ -8,6 +8,7 @@ import hongik.Todoing.domain.todo.dto.request.ChatTodoCreateRequestDTO;
 import hongik.Todoing.domain.todo.dto.request.TodoCreateRequestDTO;
 import hongik.Todoing.domain.todo.dto.request.TodoUpdateRequestDTO;
 import hongik.Todoing.domain.todo.dto.response.TodoResponseDTO;
+import hongik.Todoing.domain.todo.facade.TodoUsecase;
 import hongik.Todoing.domain.todo.service.ChatTodoService;
 import hongik.Todoing.domain.todo.service.SelfTodoService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
@@ -29,6 +30,7 @@ public class TodoController {
     private final SelfTodoService selfTodoService;
     private final ChatSessionService chatSessionService;
     private final ChatTodoService chatTodoService;
+    private final TodoUsecase todoUsecase;
 
     // 투두리스트 만들기 - self
     @Operation(summary = "투두리스트를 생성합니다.")
@@ -37,7 +39,7 @@ public class TodoController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @RequestBody TodoCreateRequestDTO requestDTO
             ) {
-        selfTodoService.createTodo(principal.getMember(), requestDTO);
+        todoUsecase.createTodo(principal.getMember().getId(), requestDTO);
         return ApiResponse.onSuccess(null);
     }
 
@@ -48,7 +50,7 @@ public class TodoController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @RequestParam("date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)LocalDate date
             ) {
-        List<TodoResponseDTO> todos = selfTodoService.getTodosByDate(principal.getMember(), date);
+        List<TodoResponseDTO> todos = selfTodoService.getTodosByDate(principal.getMember().getId(), date);
         return ApiResponse.onSuccess(todos);
     }
 
@@ -60,7 +62,7 @@ public class TodoController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @PathVariable Long todoId
     ) {
-        selfTodoService.deleteTodo(principal.getMember(), todoId);
+        selfTodoService.deleteTodo(principal.getMember().getId(), todoId);
         return ApiResponse.onSuccess(null);
     }
 
@@ -73,7 +75,7 @@ public class TodoController {
             @PathVariable Long todoId,
             @RequestBody TodoUpdateRequestDTO requestDTO
     ) {
-        selfTodoService.updateTodo(principal.getMember(), todoId, requestDTO);
+        selfTodoService.updateTodo(principal.getMember().getId(), todoId, requestDTO);
         return ApiResponse.onSuccess(null);
     }
 
@@ -84,7 +86,7 @@ public class TodoController {
             @AuthenticationPrincipal PrincipalDetails principal,
             @PathVariable Long todoId
     ) {
-        selfTodoService.toggleTodo(principal.getMember(), todoId);
+        selfTodoService.toggleTodo(principal.getMember().getId(), todoId);
         return ApiResponse.onSuccess(null);
     }
 

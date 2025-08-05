@@ -35,7 +35,7 @@ public class ChatTodoService {
             for (ChatTodoCreateRequestDTO.SubQuest subQuest : requestDTO.getSubQuests()) {
                 System.out.println("📌 SubQuest: task=" + subQuest.getTask() + ", date=" + subQuest.getDate());
                 Todo todo = Todo.builder()
-                        .member(member)
+                        .memberId(member.getId())
                         .content(subQuest.getTask())
                         .todoDate(LocalDate.parse(subQuest.getDate()))
                         .label(label)

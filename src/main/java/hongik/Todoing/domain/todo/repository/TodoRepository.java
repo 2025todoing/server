@@ -11,16 +11,17 @@ import java.util.List;
 import java.util.Optional;
 
 public interface TodoRepository extends JpaRepository<Todo, Long> {
-    List<Todo> findByMember(Member member);
+
+    List<Todo> findByMemberId(Long memberId);
 
     Optional<Todo> findByTodoId(Long todoId);
 
     // todo 볼 때 라벨별로 봐야 함.
     @Query("""
-        SELECT t
-        FROM Todo t
-        WHERE t.member = :member AND t.todoDate = :date
-        ORDER BY t.label.labelName ASC
-        """)
-    List<Todo> findByMemberAndTodoDate(@Param("member") Member member,@Param("date") LocalDate date);
+    SELECT t
+    FROM Todo t
+    WHERE t.memberId = :memberId AND t.todoDate = :date
+    ORDER BY t.label.labelName ASC
+    """)
+    List<Todo> findByMemberIdAndTodoDate(@Param("memberId") Long memberId, @Param("date") LocalDate date);
 }

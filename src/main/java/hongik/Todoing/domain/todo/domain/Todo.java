@@ -35,9 +35,8 @@ public class Todo extends BaseEntity {
     private boolean isCompleted;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private Member member;
+    @Column(name = "user_id")
+    private Long memberId;
 
     @ManyToOne
     @JoinColumn(name = "label_id")
@@ -58,4 +57,9 @@ public class Todo extends BaseEntity {
         this.todoDate = todoDate;
         this.label = label;
     }
+
+
+    ///2.   @트랜잭션 의 길이가 길어진다.
+
+
 }
