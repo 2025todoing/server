@@ -42,19 +42,19 @@ public class OpenAiService {
 
         List<Map<String, Object>> fullMessages = new ArrayList<>();
 
-// 1. 캐릭터/말투 정의 (Persona)
+        // 1. 캐릭터/말투 정의 (Persona)
         fullMessages.add(Map.of(
                 "role", "system",
                 "content", systemPromptLoader.get("persona")
         ));
 
-// 2. JSON 포맷 강제 (Format)
+        // 2. JSON 포맷 강제 (Format)
         fullMessages.add(Map.of(
                 "role", "system",
                 "content", systemPromptLoader.get("format")
         ));
 
-// 3. 세션 정보 (Session)
+        // 3. 세션 정보 (Session)
         fullMessages.add(Map.of(
                 "role", "system",
                 "content", systemPromptLoader.getSessionFormatted(
@@ -65,7 +65,7 @@ public class OpenAiService {
                 )
         ));
 
-// 4. 기존 대화 (user / assistant)
+        // 4. 기존 대화 (user / assistant)
         fullMessages.addAll(
                 messages.stream().map(msg -> {
                     Map<String, Object> map = new HashMap<>();
