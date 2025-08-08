@@ -16,11 +16,9 @@ spring:
 
   datasource:
     url: ${SPRING_DATASOURCE_URL}
-    username: ${DB_USERNAME}
-    password: ${DB_PASSWORD}
-
-
-
+    username: ${SPRING_DATASOURCE_USERNAME}
+    password: ${SPRING_DATASOURCE_PASSWORD}
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:
@@ -36,7 +34,8 @@ spring:
             hibernate:
               SQL: debug
               type: trace
-
+          com:
+            todoing: debug
 
   jwt:
     secret: ${JWT_SECRET}
@@ -53,11 +52,4 @@ spring:
 kakao:
   client_id: ${KAKAO_CLIENT_ID}
   redirect_uri: ${KAKAO_REDIRECT_URI}
-
-logging:
-  level:
-    root: info
-    org.hibernate.SQL: debug
-    org.hibernate.type: trace
-    com.todoing: debug
 
