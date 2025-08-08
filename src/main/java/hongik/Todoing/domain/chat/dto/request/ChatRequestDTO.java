@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.chat.dto;
+package hongik.Todoing.domain.chat.dto.request;
 
 
 import lombok.Getter;
@@ -17,7 +17,5 @@ public class ChatRequestDTO {
     public static class Message {
         private String role;
         private String content;
-
-        // getter, setter
     }
 }

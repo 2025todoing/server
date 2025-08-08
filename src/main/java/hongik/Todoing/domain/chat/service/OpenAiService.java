@@ -1,18 +1,14 @@
 package hongik.Todoing.domain.chat.service;
-import hongik.Todoing.domain.chat.dto.ChatRequestDTO;
-import hongik.Todoing.domain.chat.dto.ChatResponseDTO;
+import hongik.Todoing.domain.chat.dto.request.ChatRequestDTO;
+import hongik.Todoing.domain.chat.dto.response.ChatResponseDTO;
 import hongik.Todoing.domain.chat.dto.ChatSessionState;
 import hongik.Todoing.global.prompt.SystemPromptLoader;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.InputStream;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 

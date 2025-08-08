@@ -33,7 +33,7 @@ public class ChatTodoService {
             ).orElseThrow(() -> new GeneralException(ErrorStatus.NOT_FOUND));
 
             for (ChatTodoCreateRequestDTO.SubQuest subQuest : requestDTO.getSubQuests()) {
-                System.out.println("📌 SubQuest: task=" + subQuest.getTask() + ", date=" + subQuest.getDate());
+                System.out.println("SubQuest: task=" + subQuest.getTask() + ", date=" + subQuest.getDate());
                 Todo todo = Todo.builder()
                         .memberId(member.getId())
                         .content(subQuest.getTask())
@@ -47,8 +47,8 @@ public class ChatTodoService {
                 System.out.println("✅ Todo saved: " + todo.getContent());
             }
         } catch (Exception e) {
-            System.out.println("❌ 예외 발생: " + e.getClass().getSimpleName());
-            System.out.println("💬 메시지: " + e.getMessage());
+            System.out.println(" 예외 발생: " + e.getClass().getSimpleName());
+            System.out.println(" 메시지: " + e.getMessage());
             e.printStackTrace(); // 필요 시 포함
             throw e; //
         }
