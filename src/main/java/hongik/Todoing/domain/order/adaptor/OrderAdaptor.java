@@ -1,12 +1,15 @@
 package hongik.Todoing.domain.order.adaptor;
 
+import hongik.Todoing.Common.annotation.Adaptor;
 import hongik.Todoing.domain.order.repository.OrderRepository;
 import hongik.Todoing.domain.order.domain.Order;
-import hongik.Todoing.domain.order.exception.OrderNotFoundException;
+import hongik.Todoing.domain.order.exception.orderException.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 
+import java.awt.*;
 import java.util.List;
 
+@Adaptor
 @RequiredArgsConstructor
 public class OrderAdaptor {
 
@@ -30,5 +33,7 @@ public class OrderAdaptor {
                 .orElseThrow(() -> OrderNotFoundException.EXCEPTION);
     }
 
-
+    public Order findByPartnerOrderId(String partnerOrderId) {
+        return orderRepository.findByPartnerOrderId(partnerOrderId);
+    }
 }

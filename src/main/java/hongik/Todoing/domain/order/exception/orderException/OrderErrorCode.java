@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.order.exception;
+package hongik.Todoing.domain.order.exception.orderException;
 
 import hongik.Todoing.global.apiPayload.code.BaseErrorCode;
 import hongik.Todoing.global.apiPayload.code.errorDto.ErrorReasonDTO;

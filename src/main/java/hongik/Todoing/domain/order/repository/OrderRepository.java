@@ -10,4 +10,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> findAllByUserId(Long userId);
 
     Optional<Order> findByTid(String tid);
+
+    Order findByPartnerOrderId(String partnerOrderId);
 }
