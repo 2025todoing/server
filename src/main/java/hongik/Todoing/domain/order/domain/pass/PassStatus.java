@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.order.domain;
+package hongik.Todoing.domain.order.domain.pass;
 
 public enum PassStatus {
     ACTIVE,

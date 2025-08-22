@@ -49,7 +49,8 @@ public enum ErrorStatus implements BaseErrorCode {
     // 400 BAD_REQUEST
     INVALID_PARAMETER(HttpStatus.BAD_REQUEST, "400", "잘못된 파라미터입니다."),
 
-    CANNOT_BE_FRIEND_WITH_SELF(HttpStatus.BAD_REQUEST, "400", "스스로와 친구가 될 수 없습니다.");
+    CANNOT_BE_FRIEND_WITH_SELF(HttpStatus.BAD_REQUEST, "400", "스스로와 친구가 될 수 없습니다."),
+    INVALID_REDIRECT_URI(HttpStatus.BAD_REQUEST, "400", "유효하지 않은 리다이렉트 URI입니다."),;
 
     private final HttpStatus httpStatus;
     private final String code;

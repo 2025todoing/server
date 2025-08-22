@@ -58,3 +58,10 @@ kakao:
   client_id: ${KAKAO_CLIENT_ID}
   redirect_uri: ${KAKAO_REDIRECT_URI}
 
+kakao_pay:
+  redirect:
+    whitelist:
+      allowed-redirect-uris:
+        - https://todooungi.netlify.app/payment
+        - http://localhost:5173/payment
+        - http://localhost:8080/payment

@@ -1,5 +1,6 @@
-package hongik.Todoing.domain.order.domain;
+package hongik.Todoing.domain.order.domain.pass;
 
+import hongik.Todoing.domain.order.domain.order.Order;
 import hongik.Todoing.domain.order.validator.PassValidator;
 import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
@@ -56,6 +57,7 @@ public class Pass extends BaseEntity {
         this.status = PassStatus.ACTIVE; // 기본 상태는 ACTIVE
         this.orderId = orderId; // 결제 아이디 설정
     }
+
 
     public Integer remainingCount() {
         return limitCount - usedCount;

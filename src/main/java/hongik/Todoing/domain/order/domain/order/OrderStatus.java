@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.order.domain;
+package hongik.Todoing.domain.order.domain.order;
 
 public enum OrderStatus {
     READY, // 결제 준비 상태

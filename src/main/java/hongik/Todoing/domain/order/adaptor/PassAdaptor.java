@@ -1,7 +1,7 @@
 package hongik.Todoing.domain.order.adaptor;
 
 import hongik.Todoing.Common.annotation.Adaptor;
-import hongik.Todoing.domain.order.domain.Pass;
+import hongik.Todoing.domain.order.domain.pass.Pass;
 import hongik.Todoing.domain.order.exception.passException.PassNotFoundException;
 import hongik.Todoing.domain.order.repository.PassRepository;
 import lombok.RequiredArgsConstructor;
@@ -25,7 +25,7 @@ public class PassAdaptor {
     }
 
     public List<Pass> findByUserId(Long userId) {
-        return passRepository.finByUserId(userId);
+        return passRepository.findByUserId(userId);
     }
 
     public Pass findByOrderId(Long orderId) {

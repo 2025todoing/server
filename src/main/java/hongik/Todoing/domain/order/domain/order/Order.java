@@ -1,10 +1,10 @@
-package hongik.Todoing.domain.order.domain;
+package hongik.Todoing.domain.order.domain.order;
 
+import hongik.Todoing.domain.order.domain.pass.ProductCode;
 import hongik.Todoing.domain.order.exception.orderException.OrderNotValidException;
 import hongik.Todoing.domain.order.validator.OrderValidator;
 import hongik.Todoing.global.common.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,6 +14,7 @@ import java.time.LocalDateTime;
 @Entity
 @Getter
 @NoArgsConstructor
+@Table(name = "orders")
 public class Order extends BaseEntity {
 
     @Id
@@ -33,9 +34,10 @@ public class Order extends BaseEntity {
     @Column(name = "tid", nullable = true, unique = true)
     private String tid;
 
-    // 표시용 이름(영수증 내역 용)
-    @Column(name = "item_name", nullable = false)
-    private String itemName;
+    // 구매 상품 이름
+    @Enumerated(EnumType.STRING)
+    @Column(name = "item_code", nullable = false)
+    private ProductCode itemCode;
 
     // 수량 - 일반적으로 1개입니다.
     @Column(nullable = false)
@@ -64,13 +66,13 @@ public class Order extends BaseEntity {
     public Order (
             Long userId,
             String tid,
-            String itemName,
+            ProductCode itemCode,
             Integer quantity,
             Integer totalAmount,
             OrderStatus orderStatus ) {
         this.userId = userId;
         this.tid = tid;
-        this.itemName = itemName;
+        this.itemCode = itemCode;
         this.quantity = quantity;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
@@ -82,34 +84,31 @@ public class Order extends BaseEntity {
             Long userId,
             ProductCode productCode,
             int quantity,
-            String partnerOrderId
+            String partnerOrderId,
+            OrderValidator orderValidator
     ) {
+        orderValidator.validCreate(userId, quantity);
         Order order = new Order();
         order.userId = userId;
         order.partnerOrderId = partnerOrderId;
-        order.itemName = productCode.getName();
+        order.itemCode = productCode;
         order.quantity = quantity;
         order.totalAmount = productCode.getPrice() * quantity;
         order.provider = PaymentProvider.KAKAO_PAY;
         return order;
     }
 
-    // Kakao ready 후 받은 tid (최초 1회)
-    public void setTid(String tid) {
-        if(this.tid != null)
-            throw OrderNotValidException.EXCEPTION;
+    public void updateTidAfterReady(String tid) {
         this.tid = tid;
     }
 
-    // 승인 가능한 상태인지 확인
-    public void enableApprove(OrderValidator validator) {
-        validator.validApprove(this);
-    }
-
     // 승인 처리
-    public void approve(LocalDateTime now) {
+    public Order approve(LocalDateTime now,
+                        OrderValidator orderValidator) {
+        orderValidator.validApprove(this, this.tid);
         this.orderStatus = OrderStatus.APPROVED;
         this.approvedAt =now;
+        return this;
     }
 
     // 승인 전 취소
@@ -124,6 +123,12 @@ public class Order extends BaseEntity {
             throw OrderNotValidException.EXCEPTION;
         }
         this.orderStatus = OrderStatus.REFUNDED;
+        this.cancelledAt = now;
+    }
+
+    // 승인 전 실패
+    public void failBeforeApprove(LocalDateTime now) {
+        this.orderStatus = OrderStatus.FAILED;
         this.cancelledAt = now;
     }
 

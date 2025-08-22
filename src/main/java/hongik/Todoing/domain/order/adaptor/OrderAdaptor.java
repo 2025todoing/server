@@ -2,11 +2,10 @@ package hongik.Todoing.domain.order.adaptor;
 
 import hongik.Todoing.Common.annotation.Adaptor;
 import hongik.Todoing.domain.order.repository.OrderRepository;
-import hongik.Todoing.domain.order.domain.Order;
+import hongik.Todoing.domain.order.domain.order.Order;
 import hongik.Todoing.domain.order.exception.orderException.OrderNotFoundException;
 import lombok.RequiredArgsConstructor;
 
-import java.awt.*;
 import java.util.List;
 
 @Adaptor
@@ -17,6 +16,11 @@ public class OrderAdaptor {
 
     public Order save(Order order) {
         return orderRepository.save(order);
+    }
+
+    public void saveWithTid(Order order, String tid) {
+        order.updateTidAfterReady(tid);
+        orderRepository.save(order);
     }
 
     public Order findById(Long orderId) {

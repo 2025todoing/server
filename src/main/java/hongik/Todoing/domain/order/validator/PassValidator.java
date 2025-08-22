@@ -2,8 +2,8 @@ package hongik.Todoing.domain.order.validator;
 
 import hongik.Todoing.Common.annotation.Validator;
 import hongik.Todoing.domain.order.adaptor.PassAdaptor;
-import hongik.Todoing.domain.order.domain.Pass;
-import hongik.Todoing.domain.order.domain.PassStatus;
+import hongik.Todoing.domain.order.domain.pass.Pass;
+import hongik.Todoing.domain.order.domain.pass.PassStatus;
 import hongik.Todoing.domain.order.exception.passException.PassAlreadyUsedException;
 import hongik.Todoing.domain.order.exception.passException.PassNotOwnedException;
 import hongik.Todoing.domain.order.exception.passException.PassNotValidException;
