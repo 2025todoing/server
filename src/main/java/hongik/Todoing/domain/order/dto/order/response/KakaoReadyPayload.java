@@ -1,6 +1,7 @@
-package hongik.Todoing.domain.order.dto.response;
+package hongik.Todoing.domain.order.dto.order.response;
 
 import hongik.Todoing.domain.order.domain.order.Order;
+import hongik.Todoing.domain.order.dto.order.request.KakaoReadyRequest;
 import hongik.Todoing.global.config.PaymentsProperties;
 import lombok.Builder;
 import lombok.Getter;
@@ -66,6 +67,19 @@ public class KakaoReadyPayload {
         this.quantity = order.getQuantity();
         this.totalAmount = order.getTotalAmount();
         this.taxFreeAmount = 0; // Assuming tax-free amount is 0 for simplicity
+        this.approvalUrl = properties.getLocalApproveUrl();
+        this.cancelUrl = properties.getLocalCancelRedirect();
+        this.failUrl = properties.getLocalFailRedirect();
+    }
+
+    public KakaoReadyPayload(KakaoReadyRequest request, PaymentsProperties properties) {
+        this.cid = properties.getCid();
+        this.partnerOrderId = request.getPartnerOrderId();
+        this.partnerUserId = String.valueOf(request.getUserId());
+        this.itemName = request.getProductCode().getName();
+        this.quantity = request.getQuantity();
+        this.totalAmount = request.getProductCode().getPrice() * getQuantity();
+        this.taxFreeAmount = 0;
         this.approvalUrl = properties.getLocalApproveUrl();
         this.cancelUrl = properties.getLocalCancelRedirect();
         this.failUrl = properties.getLocalFailRedirect();

@@ -2,12 +2,10 @@ package hongik.Todoing.Api.order.controller;
 
 import hongik.Todoing.Api.order.model.dto.request.KakaoReadyRequest;
 import hongik.Todoing.Api.order.service.pass.PassUsecase;
-import hongik.Todoing.domain.order.domain.pass.ProductCode;
-import hongik.Todoing.domain.order.dto.response.KakaoReadyResponse;
+import hongik.Todoing.domain.order.dto.order.response.KakaoReadyResponse;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
