@@ -38,7 +38,7 @@ public class ChatTodoService {
                         .memberId(member.getId())
                         .content(subQuest.getTask())
                         .todoDate(LocalDate.parse(subQuest.getDate()))
-                        .label(label)
+                        .labelId(label.getLabelId())
                         .isAiNeeded(false)
                         .isCompleted(false)
                         .build();
