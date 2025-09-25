@@ -21,7 +21,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
     SELECT t
     FROM Todo t
     WHERE t.memberId = :memberId AND t.todoDate = :date
-    ORDER BY t.label.labelName ASC
+    ORDER BY t.labelId ASC\s
     """)
     List<Todo> findByMemberIdAndTodoDate(@Param("memberId") Long memberId, @Param("date") LocalDate date);
 }

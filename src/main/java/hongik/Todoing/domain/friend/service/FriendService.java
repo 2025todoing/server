@@ -26,6 +26,7 @@ public class FriendService {
     private final MemberRepository memberRepository;
     private final FriendRepository friendRepository;
     private final TodoRepository todoRepository;
+    private final TodoConverter todoConverter;
 
     @Transactional
     public void addFriend(Member me, String friendEmail) {
@@ -77,7 +78,7 @@ public class FriendService {
         }
 
         List<Todo> todos = todoRepository.findByMemberId(target.getId());
-        return TodoConverter.toTodoDtoList(todos);
+        return todoConverter.toTodoDtoList(todos);
     }
 
 }
