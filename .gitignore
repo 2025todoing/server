@@ -38,6 +38,7 @@ out/
 
 ### application.yml###
 application-test.yml
+application-local.yml
 
 ### .env###
 src/main/resources/env/.env.properties
