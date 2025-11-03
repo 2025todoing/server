@@ -33,4 +33,6 @@ public class PassController {
         passUsecase.completeOrderPass(userId, tid, pgToken);
         return ApiResponse.onSuccess("null"); // 성공 페이지로 리다이렉트
     }
+
+    //@Operation(summary = "AI 사용 시 Pass가 1개씩 차감됩니다.")
 }

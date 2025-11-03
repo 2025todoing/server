@@ -18,6 +18,10 @@ public enum ErrorStatus implements BaseErrorCode {
     EMAIL_DUPLICATED(HttpStatus.BAD_REQUEST, "400", "이메일이 중복되었습니다."),
     FRIEND_REQUEST_IS_NULL(HttpStatus.BAD_REQUEST, "400", "친구 요청이 null입니다."),
     FRIEND_REQUEST_DUPLICATED(HttpStatus.BAD_REQUEST, "400", "친구 요청이 중복되었습니다."),
+    TODO_ALREADY_COMPLETED(HttpStatus.BAD_REQUEST, "400", "이미 완료된 할 일입니다."),
+    TODO_DEADLINE_INVALID(HttpStatus.BAD_REQUEST, "400", "할 일의 마감 기한이 유효하지 않습니다."),
+    PASS_NOT_FOUND(HttpStatus.BAD_REQUEST, "400", "사용자에게 패스가 없습니다."),
+    PASS_NOT_AVAILABLE(HttpStatus.BAD_REQUEST, "400", "사용 가능한 패스가 없습니다."),
     // 401 UNAUTHORIZED
     UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "인증되지 않은 사용자입니다."),
     COMMUNITY_ADMIN_UNAUTHORIZED(HttpStatus.UNAUTHORIZED, "401", "커뮤니티 관리자 권한이 없습니다."),
