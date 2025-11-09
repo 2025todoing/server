@@ -63,14 +63,14 @@ jobs:
           chmod 600 ~/.ssh/id_rsa
 
       # === (선택) gcloud-key.json 업로드 유지 ===
-      - name: Upload gcloud-key.json to EC2
-        if: ${{ secrets.GOOGLE_CREDENTIAL != '' }}
-        env:
-          GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
-        run: |
-          echo "$GOOGLE_CREDENTIAL" > gcloud-key.json
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa \
-            gcloud-key.json ${{ secrets.EC2_NAME }}@${{ secrets.EC2_HOST_IP }}:~/gcloud-key.json
+      #- name: Upload gcloud-key.json to EC2
+      #  if: ${{ secrets.GOOGLE_CREDENTIAL != '' }}
+      #  env:
+      #    GOOGLE_CREDENTIAL: ${{ secrets.GOOGLE_CREDENTIAL }}
+      #  run: |
+      #    echo "$GOOGLE_CREDENTIAL" > gcloud-key.json
+      #    scp -o StrictHostKeyChecking=no -i ~/.ssh/id_rsa \
+      #      gcloud-key.json ${{ secrets.EC2_NAME }}@${{ secrets.EC2_HOST_IP }}:~/gcloud-key.json
 
       # === 배포(SSH 유지): ECR에서 pull 후 컨테이너 실행 ===
       - name: Deploy to EC2 (SSH)
