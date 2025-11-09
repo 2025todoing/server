@@ -23,4 +23,7 @@ public class Verification {
     @Enumerated(EnumType.STRING)
     private VerificationType type;
 
+    @Column(name =  "todo_id")
+    private Long todoId;
+
 }

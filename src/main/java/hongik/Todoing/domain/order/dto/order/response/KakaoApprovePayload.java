@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.order.dto.response;
+package hongik.Todoing.domain.order.dto.order.response;
 
 import hongik.Todoing.domain.order.domain.order.Order;
 import hongik.Todoing.global.config.PaymentsProperties;
