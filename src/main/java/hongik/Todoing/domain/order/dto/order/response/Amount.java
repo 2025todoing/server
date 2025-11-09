@@ -1,4 +1,4 @@
-package hongik.Todoing.domain.order.dto.response;
+package hongik.Todoing.domain.order.dto.order.response;
 
 import lombok.Builder;
 import lombok.Getter;

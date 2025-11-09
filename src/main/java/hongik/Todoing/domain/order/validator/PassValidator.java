@@ -28,8 +28,10 @@ public class PassValidator {
         validOwner(pass, userId);
         if(!Objects.equals(pass.getStatus(), PassStatus.ACTIVE ))
             throw PassNotValidException.EXCEPTION;
-        if(pass.getUsedCount() >= pass.getLimitCount())
+        if(pass.getUsedCount() >= pass.getLimitCount()) {
             throw PassAlreadyUsedException.EXCEPTION;
+        }
+
     }
 
     // 환불 가능 이용권인지 확인합니다.
@@ -53,4 +55,8 @@ public class PassValidator {
         }
     }
 
+    // 패스가 상태 변화가 필요한가?
+    public void checkStatus(Pass pass) {
+
+    }
 }

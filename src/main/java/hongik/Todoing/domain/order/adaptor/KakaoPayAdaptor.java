@@ -1,10 +1,11 @@
 package hongik.Todoing.domain.order.adaptor;
 
 import hongik.Todoing.domain.order.domain.order.Order;
-import hongik.Todoing.domain.order.dto.response.KakaoApprovePayload;
-import hongik.Todoing.domain.order.dto.response.KakaoApproveResponse;
-import hongik.Todoing.domain.order.dto.response.KakaoReadyPayload;
-import hongik.Todoing.domain.order.dto.response.KakaoReadyResponse;
+import hongik.Todoing.domain.order.dto.order.request.KakaoReadyRequest;
+import hongik.Todoing.domain.order.dto.order.response.KakaoApprovePayload;
+import hongik.Todoing.domain.order.dto.order.response.KakaoApproveResponse;
+import hongik.Todoing.domain.order.dto.order.response.KakaoReadyPayload;
+import hongik.Todoing.domain.order.dto.order.response.KakaoReadyResponse;
 import hongik.Todoing.global.config.PaymentsProperties;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpEntity;
@@ -12,9 +13,6 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
@@ -37,6 +35,14 @@ public class KakaoPayAdaptor {
 
         return restTemplate.postForObject(url, new HttpEntity<>(readyPayload.toReadyMap(), headers()), KakaoReadyResponse.class);
 
+    }
+
+    public KakaoReadyResponse readyWithDto(KakaoReadyRequest request) {
+        String url = properties.getReadyUrl();
+
+        KakaoReadyPayload payload = new KakaoReadyPayload(request, properties);
+
+        return  restTemplate.postForObject(url, new HttpEntity<>(payload.toReadyMap(), headers()), KakaoReadyResponse.class);
     }
 
     public KakaoApproveResponse approve(Order order, String pgToken) {

@@ -1,10 +1,8 @@
-package hongik.Todoing.domain.order.dto.response;
+package hongik.Todoing.domain.order.dto.order.response;
 
 import lombok.Builder;
 import lombok.Getter;
 import lombok.ToString;
-
-import java.util.Map;
 
 @Getter
 @Builder
