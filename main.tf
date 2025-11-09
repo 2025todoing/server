@@ -132,7 +132,7 @@ resource "aws_iam_role" "ec2_role" {
 # SSM Policy Attachment
 resource "aws_iam_role_policy_attachment" "ssm_policy" {
     role       = aws_iam_role.ec2_role.name
-    policy_arn = "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
 
 # EC2 Instance Profile
