@@ -8,7 +8,7 @@ on:
 
 env:
   AWS_REGION: ap-northeast-2
-  ECR_REPOSITORY: backend-portfolio
+  ECR_REPOSITORY: todoing-repo
 
 jobs:
   build:
