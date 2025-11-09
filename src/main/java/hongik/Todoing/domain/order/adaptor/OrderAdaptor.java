@@ -32,6 +32,7 @@ public class OrderAdaptor {
         return orderRepository.findAllByUserId(userId);
     }
 
+
     public Order findByTid(String tid) {
         return orderRepository.findByTid(tid)
                 .orElseThrow(() -> OrderNotFoundException.EXCEPTION);

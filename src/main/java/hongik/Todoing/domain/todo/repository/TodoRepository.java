@@ -16,6 +16,7 @@ public interface TodoRepository extends JpaRepository<Todo, Long> {
 
     Optional<Todo> findByTodoId(Long todoId);
 
+
     // todo 볼 때 라벨별로 봐야 함.
     @Query("""
     SELECT t

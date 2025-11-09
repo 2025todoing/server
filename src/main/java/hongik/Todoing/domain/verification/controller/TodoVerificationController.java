@@ -1,11 +1,17 @@
 package hongik.Todoing.domain.verification.controller;
 
 import com.google.cloud.vision.v1.EntityAnnotation;
+import hongik.Todoing.domain.auth.util.PrincipalDetails;
+import hongik.Todoing.domain.member.domain.Member;
+import hongik.Todoing.domain.verification.domain.Verification;
 import hongik.Todoing.domain.verification.dto.TextAnnotationDto;
+import hongik.Todoing.domain.verification.dto.VerificationResponse;
+import hongik.Todoing.domain.verification.service.VerificationService;
 import hongik.Todoing.domain.verification.service.VisionService;
 import hongik.Todoing.global.apiPayload.ApiResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -18,6 +24,12 @@ import java.util.List;
 public class TodoVerificationController {
 
     private final VisionService visionService;
+    private final VerificationService verificationService;
+
+    /*
+    - 사진으로 인증하기 -> 1. 사진 업로드 -> 2. 사진에서 글자 인식 -> 3. 인식된 글자가 할 일의 인증 문구와 일치하는지 확인
+    -
+     */
 
     @Operation(summary = "사진 인증 요청 컨트롤러")
     @PostMapping("/{todoId}/vision")
@@ -56,6 +68,17 @@ public class TodoVerificationController {
         System.out.println(labelDescriptions);
 
         return ApiResponse.onSuccess(labelDescriptions);
+    }
+
+    @Operation(summary = "사진 인증, 글과 사진 어떤 것이든 사진은 한 번에 묶어서 인증이 가능합니다.")
+    @PostMapping("/image")
+    public ApiResponse<?> verifyTodoImage(
+            @AuthenticationPrincipal PrincipalDetails principal,
+            @RequestParam Long todoId,
+            @RequestPart("image") MultipartFile image
+    ){
+        VerificationResponse response = verificationService.verifyTodoImage(principal.getMember(), todoId, image);
+        return ApiResponse.onSuccess(response);
     }
 
 }
