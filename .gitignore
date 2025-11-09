@@ -79,4 +79,3 @@ docker-compose.override.yml
 ### Redis dump ###
 dump.rdb
 
-

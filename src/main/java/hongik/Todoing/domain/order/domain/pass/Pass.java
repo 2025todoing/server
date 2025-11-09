@@ -63,8 +63,9 @@ public class Pass extends BaseEntity {
         return limitCount - usedCount;
     }
 
-    // 사용 가능한 이용권인지 확인합니다.
+    // 패스를 사용합니다.
     public void consume(Long userId, PassValidator passValidator) {
+        // 사용 가능한 이용권인지 확인합니다.
         passValidator.validPass(this, userId);
         this.usedCount++;
     }
@@ -78,5 +79,13 @@ public class Pass extends BaseEntity {
     public void revoke(Long userId, PassValidator passValidator) {
         passValidator.validRevoke(this);
         this.status = PassStatus.REVOKED;
+    }
+
+    // 패스를 다 사용할 경우 패스 상태가 변경되어야 합니다.
+    public void checkPassStatus() {
+        if (this.usedCount >= this.limitCount) {
+            this.status = PassStatus.EXPIRED;
+            return;
+        }
     }
 }

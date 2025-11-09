@@ -3,7 +3,7 @@ package hongik.Todoing.Api.order.service.pass;
 import hongik.Todoing.Common.annotation.UseCase;
 import hongik.Todoing.domain.order.domain.order.Order;
 import hongik.Todoing.domain.order.domain.pass.ProductCode;
-import hongik.Todoing.domain.order.dto.response.KakaoReadyResponse;
+import hongik.Todoing.domain.order.dto.order.response.KakaoReadyResponse;
 import hongik.Todoing.domain.order.service.OrderService;
 import hongik.Todoing.domain.order.service.PassService;
 import lombok.RequiredArgsConstructor;

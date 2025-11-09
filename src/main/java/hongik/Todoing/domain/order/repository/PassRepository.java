@@ -10,4 +10,7 @@ public interface PassRepository extends JpaRepository<Pass, Long> {
     List<Pass> findByUserId(Long userId);
     Optional<Pass> findByOrderId(Long orderId);
 
+    // 패스들 중 선택해서 사용 할 예정
+
+
 }

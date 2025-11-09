@@ -101,7 +101,7 @@ jobs:
               -e JWT_REFRESH_EXPIRE='${{ secrets.JWT_REFRESH_EXPIRE }}' \
               -e KAKAO_CLIENT_ID='${{ secrets.KAKAO_CLIENT_ID }}' \
               -e KAKAO_REDIRECT_URI='${{ secrets.KAKAO_REDIRECT_URI }}' \
-              -e OPENAI_API_KEY='${{ secrets.OPENAI_API_KEY }}' \
+              -e OPENAI_API_KEY='${{ secrets.OPEgNAI_API_KEY }}' \
               -e GOOGLE_APPLICATION_CREDENTIALS=/app/gcloud-key.json \
               -v /home/ubuntu/gcloud-key.json:/app/gcloud-key.json \
               ${{ env.IMAGE_URI }}

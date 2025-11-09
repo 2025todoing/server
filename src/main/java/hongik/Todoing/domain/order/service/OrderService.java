@@ -6,7 +6,8 @@ import hongik.Todoing.domain.order.adaptor.OrderAdaptor;
 import hongik.Todoing.domain.order.adaptor.OrderUuidGenerator;
 import hongik.Todoing.domain.order.domain.order.Order;
 import hongik.Todoing.domain.order.domain.pass.ProductCode;
-import hongik.Todoing.domain.order.dto.response.KakaoReadyResponse;
+import hongik.Todoing.domain.order.dto.order.request.KakaoReadyRequest;
+import hongik.Todoing.domain.order.dto.order.response.KakaoReadyResponse;
 import hongik.Todoing.domain.order.validator.OrderValidator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.transaction.annotation.Transactional;
@@ -31,10 +32,17 @@ public class OrderService {
         String partnerOrderId = uuidGenerator.forUser(userId, product.getName());
 
         // 주문을 생성합니다.
-        Order order = Order.createReady(userId, product, quantity, partnerOrderId, orderValidator);
+        // 주문 생성 전 dto 패턴으로 만들고 난 후에 결제 요청 준비가 완료 되면 저장하게 됩니다.
+        KakaoReadyRequest request = new KakaoReadyRequest(userId, product, quantity, partnerOrderId);
+
+        // Order order = Order.createReady(userId, product, quantity, partnerOrderId, orderValidator);
 
         // 카카오페이 결제 요청을 위한 준비
-        KakaoReadyResponse response =  kakaoPayAdaptor.ready(order);
+        KakaoReadyResponse response =  kakaoPayAdaptor.readyWithDto(request);
+
+        // 승인이 완료되면,'READY' 상태의 주문을 저장합니다.
+        Order order = Order.createReady(userId, product, quantity, partnerOrderId, orderValidator);
+
 
         // 주문에 결제 정보 저장
         orderAdaptor.saveWithTid(order, response.getTid());
