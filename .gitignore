@@ -69,6 +69,7 @@ todoing-key
 todoing-key.pem
 ubuntu@15.165.229.144
 todoing-key.pub
+variables.tf
 
 
 ### docer ###
@@ -79,4 +80,6 @@ docker-compose.override.yml
 
 ### Redis dump ###
 dump.rdb
+
+
 

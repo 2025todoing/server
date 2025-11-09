@@ -298,3 +298,33 @@ resource "aws_db_subnet_group" "rds" {
 }
 
 # RDS 향상된 모니터링을 위한 IAM 역할 <- 추후에 추가하도록 하겠습니다.
+
+# RDS 인스턴스
+resource "aws_db_instance" "todoing" {
+  identifier           = "todoing-db"
+  engine              = "mysql"
+  engine_version      = "8.0"
+  instance_class      = "db.t3.micro"
+  allocated_storage   = 20
+  storage_type        = "gp2"
+
+  db_name             = "todoing"
+  username           = "todoing_user"
+  password           = var.db_password
+
+  vpc_security_group_ids = [aws_security_group.rds.id]
+  db_subnet_group_name   = aws_db_subnet_group.rds.name
+
+  skip_final_snapshot    = true
+  publicly_accessible    = true
+
+
+  tags = {
+    Name = "todoing-db"
+  }
+}
+
+# RDS 엔드포인트 출력
+output "rds_endpoint" {
+  value = aws_db_instance.todoing.endpoint
+}
