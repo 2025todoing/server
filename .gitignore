@@ -46,3 +46,37 @@ src/main/resources/env/.env.properties
 
 ### docker-compose ###
 docker-compose.yml
+
+### Terraform IaC ###
+.terraform/
+*.tfstate
+*.tfstate.*
+.terraform.lock.hcl
+terraform.tfvars
+.env
+override.tf
+override.tf.json
+
+
+### AWS / SSH ###
+.ssh/
+*.pem
+*.key
+id_rsa
+id_ed25519
+*known_hosts
+todoing-key
+todoing-key.pem
+ubuntu@15.165.229.144
+
+
+### docer ###
+docker-compose.override.yml
+*.local.yml
+**/logs/
+**/data/
+
+### Redis dump ###
+dump.rdb
+
+
