@@ -81,24 +81,21 @@ jobs:
             --instance-ids "${{ secrets.EC2_INSTANCE_ID }}" \
             --document-name "AWS-RunShellScript" \
             --comment "Deploy Docker container" \
-            --parameters '{
-              "commands": [
-                "docker stop hongik-todoing || true",
-                "docker rm hongik-todoing || true",
-                "aws ecr get-login-password --region '"${{ env.AWS_REGION }}"' | docker login --username AWS --password-stdin '"${{ env.REGISTRY }}"'",
-                docker run -d --name hongik-todoing -p 8080:8080 \
-                  -e SPRING_PROFILES_ACTIVE=dev \
-                  -e SPRING_DATASOURCE_URL='"${{ secrets.SPRING_DATASOURCE_URL }}"' \
-                  -e SPRING_DATASOURCE_USERNAME='"${{ secrets.SPRING_DATASOURCE_USERNAME }}"' \
-                  -e SPRING_DATASOURCE_PASSWORD='"${{ secrets.SPRING_DATASOURCE_PASSWORD }}"' \
-                  -e JWT_SECRET='"${{ secrets.JWT_SECRET }}"' \
-                  -e JWT_ACCESS_EXPIRE='"${{ secrets.JWT_ACCESS_EXPIRE }}"' \
-                  -e JWT_REFRESH_EXPIRE='"${{ secrets.JWT_REFRESH_EXPIRE }}"' \
-                  -e KAKAO_CLIENT_ID='"${{ secrets.KAKAO_CLIENT_ID }}"' \
-                  -e KAKAO_REDIRECT_URI='"${{ secrets.KAKAO_REDIRECT_URI }}"' \
-                  -e OPENAI_API_KEY='"${{ secrets.OPENAI_API_KEY }}"' \
-                  '"${{ env.IMAGE_URI }}"'"
-            ]
-          }'
-
-
+            --parameters '{"commands":[
+              "docker stop hongik-todoing || true",
+              "docker rm hongik-todoing || true",
+              "aws ecr get-login-password --region ${{ env.AWS_REGION }} | docker login --username AWS --password-stdin ${{ env.REGISTRY }}",
+              "docker pull ${{ env.IMAGE_URI }}",
+              "docker run -d --name hongik-todoing -p 8080:8080 \
+                -e SPRING_PROFILES_ACTIVE=dev \
+                -e SPRING_DATASOURCE_URL=${{ secrets.SPRING_DATASOURCE_URL }} \
+                -e SPRING_DATASOURCE_USERNAME=${{ secrets.SPRING_DATASOURCE_USERNAME }} \
+                -e SPRING_DATASOURCE_PASSWORD=${{ secrets.SPRING_DATASOURCE_PASSWORD }} \
+                -e JWT_SECRET=${{ secrets.JWT_SECRET }} \
+                -e JWT_ACCESS_EXPIRE=${{ secrets.JWT_ACCESS_EXPIRE }} \
+                -e JWT_REFRESH_EXPIRE=${{ secrets.JWT_REFRESH_EXPIRE }} \
+                -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
+                -e KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }} \
+                -e OPENAI_API_KEY=${{ secrets.OPENAI_API_KEY }} \
+                ${{ env.IMAGE_URI }}"
+            ]}'
