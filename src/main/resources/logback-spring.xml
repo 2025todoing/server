@@ -37,6 +37,7 @@
         </root>
     </springProfile>
 
+
     <!-- Prod -->
     <springProfile name="prod">
         <appender name="FILE_JSON" class="ch.qos.logback.core.rolling.RollingFileAppender">
