@@ -4,8 +4,14 @@ server:
     encoding:
       charset: UTF-8
       force: true
+    session:
+      timeout: 120s # 세션 타임아웃
+  tomcat:
+    connection-timeout: 120000 # 120초
 
 spring:
+  main:
+    web-application-type: servlet
   ai:
     model:
       chat:

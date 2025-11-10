@@ -14,3 +14,7 @@
     - ssh -i todoing-key.pem ubuntu@3.38.113.231
 
 ### ssh 들어간 후 명령어 모음집
+
+
+- docker 현재 pw가 mask가 되어 있지 않은 문제 발새
+
