@@ -97,5 +97,7 @@ jobs:
                         -e JWT_REFRESH_EXPIRE=${{ secrets.JWT_REFRESH_EXPIRE }} \
                         -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
                         -e KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }} \
+                        -e KAKAOPAY_CID=${{ secrets.KAKAOPAY_CID }} \
+                        -e KAKAOPAY_SECRET_KEY=${{ secrets.KAKAOPAY_SECRET_KEY }} \ 
                         --name hongik-todoing \
                         -p 8080:8080 -d ${{ secrets.DOCKER_USERNAME }}/hongik-todoing
