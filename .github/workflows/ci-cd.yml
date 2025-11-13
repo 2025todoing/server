@@ -44,7 +44,7 @@ jobs:
           sed -i 's|${JWT_REFRESH_EXPIRE}|'"${{ secrets.JWT_REFRESH_EXPIRE }}"'|g' application-dev.yml
           sed -i 's|${KAKAO_CLIENT_ID}|'"${{ secrets.KAKAO_CLIENT_ID }}"'|g' application-dev.yml
           sed -i 's|${KAKAO_REDIRECT_URI}|'"${{ secrets.KAKAO_REDIRECT_URI }}"'|g' application-dev.yml
-          sed -i "s|${OPENAI_API_KEY}#${{ secrets.OPENAI_API_KEY }}#g" application-dev.yml
+          sed -i 's|${OPENAI_API_KEY}|'"${{ secrets.OPENAI_API_KEY }}"'|g' application-dev.yml
           sed -i 's|${KAKAOPAY_CID}|'"${{ secrets.KAKAOPAY_CID }}"'|g' application-dev.yml
           sed -i 's|${KAKAOPAY_SECRET_KEY}|'"${{ secrets.KAKAOPAY_SECRET_KEY }}"'|g' application-dev.yml
       
@@ -97,7 +97,7 @@ jobs:
                         -e KAKAO_CLIENT_ID=${{ secrets.KAKAO_CLIENT_ID }} \
                         -e KAKAO_REDIRECT_URI=${{ secrets.KAKAO_REDIRECT_URI }} \
                         -e KAKAOPAY_CID=${{ secrets.KAKAOPAY_CID }} \
-                        -e KAKAOPAY_SECRET_KEY=${{ secrets.KAKAOPAY_SECRET_KEY }} \ 
+                        -e KAKAOPAY_SECRET_KEY=${{ secrets.KAKAOPAY_SECRET_KEY }} \
                         --name hongik-todoing \
                         -p 8080:8080 \
                         -d ${{ secrets.DOCKER_USERNAME }}/hongik-todoing
