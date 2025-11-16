@@ -3,6 +3,7 @@ package hongik.Todoing.domain.chat.controller;
 import hongik.Todoing.domain.auth.util.PrincipalDetails;
 import hongik.Todoing.domain.chat.dto.request.ChatRequestDTO;
 import hongik.Todoing.domain.chat.dto.ChatSessionState;
+import hongik.Todoing.domain.chat.dto.response.ChatResultDTO;
 import hongik.Todoing.domain.chat.dto.response.ChatSubmitResponseDTO;
 import hongik.Todoing.domain.chat.service.ChatDebounceService;
 import hongik.Todoing.domain.chat.service.ChatSessionService;
@@ -46,8 +47,8 @@ public class ChatController {
     }
 
     @GetMapping("/result")
-    public ApiResponse<String> getResult(@AuthenticationPrincipal PrincipalDetails principal) {
-        String result = chatDebounceService.getResult(principal.getUsername());
+    public ApiResponse<ChatResultDTO> getResult(@AuthenticationPrincipal PrincipalDetails principal) {
+        ChatResultDTO result = chatDebounceService.getResult(principal.getUsername());
         return ApiResponse.onSuccess(result);
     }
 

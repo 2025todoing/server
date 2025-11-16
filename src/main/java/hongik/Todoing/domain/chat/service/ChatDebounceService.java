@@ -1,6 +1,8 @@
 package hongik.Todoing.domain.chat.service;
 
 import hongik.Todoing.domain.chat.dto.request.ChatRequestDTO;
+import hongik.Todoing.domain.chat.dto.response.ChatResponseDTO;
+import hongik.Todoing.domain.chat.dto.response.ChatResultDTO;
 import hongik.Todoing.domain.chat.dto.response.ChatSubmitResponseDTO;
 import hongik.Todoing.domain.chat.event.GptRequestEvent;
 import hongik.Todoing.domain.chat.store.ChatResultStore;
@@ -13,6 +15,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 import java.util.concurrent.*;
 
 @Service
@@ -38,15 +41,26 @@ public class ChatDebounceService {
         return ChatSubmitResponseDTO.of(userId);
     }
 
-    public String getResult(String userId) {
+    public ChatResultDTO getResult(String userId) {
         String result = chatResultStore.get(userId);
 
-        // 결과가 실제 응답이면 즉시 삭제
-        if (!"아직 응답 준비 중...".equals(result)) {
-            chatResultStore.clear(userId);
+        if (result == null) {
+            return null;
         }
 
-        return result;
+        // id를 프론트에서 중복 체크용으로 사용
+        ChatResultDTO dto = new ChatResultDTO(
+                UUID.randomUUID().toString(),   // id
+                result,                         // prompt
+                result                          // content
+        );
+
+        // 응답 후 삭제
+        chatResultStore.clear(userId);
+
+        return dto;
     }
+
+
 
 }
