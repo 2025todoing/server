@@ -23,6 +23,10 @@ public class Verification {
     @Enumerated(EnumType.STRING)
     private VerificationType type;
 
+    private Boolean success;
+
+    private double confidence;
+
     @Column(name =  "todo_id")
     private Long todoId;
 
