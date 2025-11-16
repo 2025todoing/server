@@ -39,7 +39,14 @@ public class ChatDebounceService {
     }
 
     public String getResult(String userId) {
-        return chatResultStore.get(userId);
+        String result = chatResultStore.get(userId);
+
+        // 결과가 실제 응답이면 즉시 삭제
+        if (!"아직 응답 준비 중...".equals(result)) {
+            chatResultStore.clear(userId);
+        }
+
+        return result;
     }
 
 }
