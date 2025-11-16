@@ -11,6 +11,7 @@ public class PaymentsProperties {
     private String cid;
     @Value("${kakaopay.secret_key}")
     private String secretKey;
+
     private final String apiUrl = "https://open-api.kakaopay.com/online";
     private final String localUrl = "http://localhost:8080";
     private final String readyUrl = "/v1/payment/ready";

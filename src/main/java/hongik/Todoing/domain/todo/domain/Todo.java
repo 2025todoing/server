@@ -40,7 +40,7 @@ public class Todo extends BaseEntity {
     @Column(name = "label_id", nullable = false)
     private Long labelId;
 
-    @Column(name = "verification_id", nullable = false)
+    @Column(name = "verification_id", nullable = true)
     private Long verification_id;
 
     @OneToMany(mappedBy = "todo", cascade = CascadeType.ALL, orphanRemoval = true)

@@ -22,4 +22,11 @@ public class VerificationUsage extends BaseEntity {
 
     @Column(name =  "user_id")
     private Long userId;
+
+    public void increase() {
+        if (usageCount == null) {
+            usageCount = 0;
+        }
+        usageCount++;
+    }
 }
