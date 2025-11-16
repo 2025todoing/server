@@ -12,10 +12,14 @@ public class ChatResultStore {
 
     public void save(String userId, String response) {
         store.put(userId, response);
+        System.out.println("🔥[STORE SAVE] user=" + userId + " 저장값=" + response);
+
     }
 
     public String get(String userId) {
-        return store.getOrDefault(userId, "아직 응답 준비 중...");
+        String value = store.get(userId);
+        System.out.println("🔥[STORE GET] user=" + userId + " 반환값=" + value);
+        return value != null ? value : "아직 응답 준비 중...";
     }
 
     public void clear(String userId) {

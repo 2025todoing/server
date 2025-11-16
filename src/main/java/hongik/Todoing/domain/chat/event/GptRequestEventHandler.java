@@ -20,6 +20,8 @@ public class GptRequestEventHandler {
     @EventListener
     public void handleGptRequest(GptRequestEvent event) {
         llmExecutor.submit(() -> {
+            System.out.println("\n🔥[EVENT FIRED] user = " + event.userId() +
+                    ", messages = " + event.messages().size());
             String result = openAiService.ask(event.userId(), event.messages()).prompt();
             chatResultStore.save(event.userId(), result);
         });
