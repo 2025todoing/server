@@ -19,11 +19,18 @@ public class GptRequestEventHandler {
 
     @EventListener
     public void handleGptRequest(GptRequestEvent event) {
-        llmExecutor.submit(() -> {
+        try {
             System.out.println("\n🔥[EVENT FIRED] user = " + event.userId() +
                     ", messages = " + event.messages().size());
+
             String result = openAiService.ask(event.userId(), event.messages()).prompt();
+
+            System.out.println("result 도 프린트 했아욤");
             chatResultStore.save(event.userId(), result);
-        });
+
+        } catch (Exception e) {
+            System.out.println("🔥🔥 GPT 처리 스레드에서 예외 발생!!!");
+            e.printStackTrace();
+        }
     }
 }
