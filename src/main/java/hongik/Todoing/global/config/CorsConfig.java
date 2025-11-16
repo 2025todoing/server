@@ -21,7 +21,8 @@ public class CorsConfig implements WebMvcConfigurer {
         List<String> allowedOrigins = List.of(
                 "http://localhost:3000",
                 "http://localhost:5173",// 개발용 React 주소
-                "https://todooungi.netlify.app"      // 실제 배포 주소
+                "https://todooungi.netlify.app",      // 실제 배포 주소
+                "http://43.203.235.223" // 실제 배포 주소
         );
         configuration.setAllowedOrigins(allowedOrigins);
 
