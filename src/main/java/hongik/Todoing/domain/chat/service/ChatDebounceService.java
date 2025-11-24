@@ -65,7 +65,7 @@ public class ChatDebounceService {
 
                 return new ChatResultDTO(
                         UUID.randomUUID().toString(),
-                        raw,       // 전체 JSON
+                        "response",       // 전체 JSON
                         content    // 프론트에서 말풍선에 넣을 내용
                 );
             }
@@ -74,7 +74,7 @@ public class ChatDebounceService {
             if (type.equals("plan")) {
                 return new ChatResultDTO(
                         UUID.randomUUID().toString(),
-                        raw,
+                        "plan",
                         raw
                 );
             }
