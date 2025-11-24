@@ -75,7 +75,6 @@ public class OpenAiService {
         Map<String, Object> body = new HashMap<>();
         body.put("model","gpt-5");
         body.put("messages", fullMessages);
-        body.put("temperature", 0.3);
 
         HttpEntity<Map<String, Object>> entity = new
                 HttpEntity<>(body, headers);
