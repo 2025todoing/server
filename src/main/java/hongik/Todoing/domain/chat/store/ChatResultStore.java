@@ -19,7 +19,7 @@ public class ChatResultStore {
     public String get(String userId) {
         String value = store.get(userId);
         System.out.println("🔥[STORE GET] user=" + userId + " 반환값=" + value);
-        return value != null ? value : "아직 응답 준비 중...";
+        return value; // null 그대로 반환
     }
 
     public void clear(String userId) {
