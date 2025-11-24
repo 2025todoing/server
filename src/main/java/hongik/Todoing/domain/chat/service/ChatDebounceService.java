@@ -1,5 +1,7 @@
 package hongik.Todoing.domain.chat.service;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import hongik.Todoing.domain.chat.dto.request.ChatRequestDTO;
 import hongik.Todoing.domain.chat.dto.response.ChatResponseDTO;
 import hongik.Todoing.domain.chat.dto.response.ChatResultDTO;
@@ -42,24 +44,53 @@ public class ChatDebounceService {
     }
 
     public ChatResultDTO getResult(String userId) {
-        String result = chatResultStore.get(userId);
+        String raw = chatResultStore.get(userId);
 
-        if (result == null) {
+        if (raw == null) {
             return null;
         }
 
-        // id를 프론트에서 중복 체크용으로 사용
-        ChatResultDTO dto = new ChatResultDTO(
-                UUID.randomUUID().toString(),   // id
-                result,                         // prompt
-                result                          // content
-        );
-
-        // 응답 후 삭제
+        // 일회성 데이터이므로 즉시 제거
         chatResultStore.clear(userId);
 
-        return dto;
+        try {
+            ObjectMapper mapper = new ObjectMapper();
+            JsonNode root = mapper.readTree(raw); // JSON 문자열 → JSON 객체
+
+            String type = root.get("type").asText(); // type 읽기
+
+            // ✔ 일반 대화 응답
+            if (type.equals("response")) {
+                String content = root.get("content").asText();
+
+                return new ChatResultDTO(
+                        UUID.randomUUID().toString(),
+                        raw,       // 전체 JSON
+                        content    // 프론트에서 말풍선에 넣을 내용
+                );
+            }
+
+            // ✔ 계획(plan) 타입 → raw JSON 전체를 content로 보내서 프론트에서 다시 parse
+            if (type.equals("plan")) {
+                return new ChatResultDTO(
+                        UUID.randomUUID().toString(),
+                        raw,
+                        raw
+                );
+            }
+
+        } catch (Exception e) {
+            System.out.println("JSON 파싱 오류: " + e.getMessage());
+        }
+
+        // ✔ JSON 파싱 실패 시 fallback
+        return new ChatResultDTO(
+                UUID.randomUUID().toString(),
+                raw,
+                raw
+        );
     }
+
 
 
 
