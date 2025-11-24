@@ -11,6 +11,6 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ChatResultDTO {
     private String id;      // 고유 ID
-    private String prompt;  // GPT가 준 응답 원문
+    private String type;
     private String content; // 프론트가 보여줄 메시지
 }
