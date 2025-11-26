@@ -39,7 +39,7 @@ public class ChatTodoService {
                         .content(subQuest.getTask())
                         .todoDate(LocalDate.parse(subQuest.getDate()))
                         .labelId(label.getLabelId())
-                        .isAiNeeded(false)
+                        .isAiNeeded(true)
                         .isCompleted(false)
                         .build();
 
