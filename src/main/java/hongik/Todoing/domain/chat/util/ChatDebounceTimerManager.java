@@ -17,7 +17,7 @@ public class ChatDebounceTimerManager {
             timers.get(userId).cancel(false);
         }
 
-        ScheduledFuture<?> future = scheduler.schedule(task,  400, TimeUnit.MILLISECONDS);
+        ScheduledFuture<?> future = scheduler.schedule(task,  200, TimeUnit.MILLISECONDS);
         timers.put(userId, future);
     }
 }
